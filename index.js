@@ -1,25 +1,76 @@
-var GPIO = require('pigpio').Gpio;
-console.log(GPIO.OUTPUT);
+const GPIO = require('pigpio').Gpio;
+const red =  new GPIO(27, {mode: GPIO.OUTPUT});
+const green = new GPIO(17, {mode: GPIO.OUTPUT});
+const blue = new GPIO(22, {mode: GPIO.OUTPUT});
+var currentColor = {
+	red: 0,
+	green: 0,
+	blue: 0
+}
+var currentMode = "";
 
-var red =  new GPIO(27, {mode: GPIO.OUTPUT});
-var green = new GPIO(17, {mode: GPIO.OUTPUT});
-var blue = new GPIO(22, {mode: GPIO.OUTPUT});
-function clear()
+var stroboscopLoop;
+
+function lights_off()
 {
- red.pwmWrite(0);
- green.pwmWrite(0);
- blue.pwmWrite(0);
+	red.pwmWrite(0);
+	green.pwmWrite(0);
+	blue.pwmWrite(0);
 }
 
-var counter = 0;
-
-setInterval(function()
+function set_color(r, g, b)
 {
-  counter++;
-   console.log(counter);
-   switch(counter%3){
-   case 1:clear(); red.pwmWrite(50); break; 
-   case 2:clear();green.pwmWrite(50); break;
-   case 0:clear();blue.pwmWrite(50); break;
-  } 
-}, 1500);
+	red.pwmWrite(r);
+	green.pwmWrite(g);
+	blue.pwmWrite(b);
+
+	currentColor =  {
+		red: r,
+		green: g,
+		blue: b
+	}
+}
+
+function stroboscopic_on()
+{
+	currentMode = "stroboscopic";	
+}
+
+function stroboscopic_off()
+{
+	currentMode = "";
+}
+
+function startStroboscopicMode() {
+	var stroboscop = true;
+	stroboscopLoop = setInterval(function(){
+		if(stroboscop){
+			set_color(currentColor.red, currentColor.green, currentColor.blue);
+		}
+		else {
+			set_color(0,0,0);
+		}
+		stroboscop = !stroboscop;
+	}, 500);
+}
+
+function resetModes(){ 
+	clearInterval(stroboscopLoop);
+}
+
+setInterval(function(){
+	switch(currentMode) {
+		case "stroboscopic": startStroboscopicMode();break;
+		default: resetModes();
+	}
+}, 100); 
+
+
+
+stroboscopic_on();
+
+
+setTimeout(function(){
+	stroboscopic_off();
+}, 10000)
+
