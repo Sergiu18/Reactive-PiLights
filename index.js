@@ -49,7 +49,7 @@ function startStroboscopicMode() {
 			set_color(currentColor.red, currentColor.green, currentColor.blue);
 		}
 		else {
-			set_color(0,0,0);
+			lights_off();
 		}
 		stroboscop = !stroboscop;
 	}, 500);
