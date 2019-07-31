@@ -50,10 +50,23 @@ function stroboscopic_off()
 	clearInterval(stroboscopLoop);
 }
 
-stroboscopic_on();
+function rainbow_on()
+{
+	for(r=0;r<255;r++)
+		for(g=0;g<255;g++)
+			for(b=0;b<255;b++)
+				set_color(r,g,b)
+}
+
+function rainbow_off()
+{
+	//clearInterval(stroboscopLoop);
+}
+
+rainbow_on();
 
 
 setTimeout(function(){
-	stroboscopic_off();
+	// stroboscopic_off();
 }, 10000)
 
