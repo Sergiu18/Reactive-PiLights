@@ -3,9 +3,9 @@ const red =  new GPIO(27, {mode: GPIO.OUTPUT});
 const green = new GPIO(17, {mode: GPIO.OUTPUT});
 const blue = new GPIO(22, {mode: GPIO.OUTPUT});
 var currentColor = {
-	red: 0,
-	green: 0,
-	blue: 0
+	red: 180,
+	green: 80,
+	blue: 50
 }
 var currentMode = "";
 
