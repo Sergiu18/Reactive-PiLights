@@ -62,7 +62,7 @@ function resetModes(){
 setInterval(function(){
 	console.log("currentMode : ", currentMode)
 	switch(currentMode) {
-		case "stroboscopic": startStroboscopicMode();break;
+		case "stroboscopic": !stroboscopLoop ? startStroboscopicMode() : null;break;
 		default: resetModes();
 	}
 }, 100); 
