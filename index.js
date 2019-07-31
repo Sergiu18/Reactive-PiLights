@@ -55,7 +55,6 @@ function rainbow_on()
 	for(r=0;r<250;r+=10)
 		for(g=0;g<250;g+=10)
 			for(b=0;b<250;b+=10)
-				console.log(r,g,b);
 				set_color(r,g,b)
 }
 
