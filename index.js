@@ -44,6 +44,7 @@ function stroboscopic_off()
 function startStroboscopicMode() {
 	var stroboscop = true;
 	stroboscopLoop = setInterval(function(){
+		console.log(stroboscop ? "lights on" : "lights off")
 		if(stroboscop){
 			set_color(currentColor.red, currentColor.green, currentColor.blue);
 		}
@@ -59,6 +60,7 @@ function resetModes(){
 }
 
 setInterval(function(){
+	console.log("currentMode : ", currentMode)
 	switch(currentMode) {
 		case "stroboscopic": startStroboscopicMode();break;
 		default: resetModes();
