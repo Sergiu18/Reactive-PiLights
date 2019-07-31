@@ -7,7 +7,6 @@ var currentColor = {
 	green: 80,
 	blue: 50
 }
-var currentMode = "";
 
 var stroboscopLoop;
 
@@ -33,15 +32,6 @@ function set_color(r, g, b)
 
 function stroboscopic_on()
 {
-	currentMode = "stroboscopic";	
-}
-
-function stroboscopic_off()
-{
-	currentMode = "";
-}
-
-function startStroboscopicMode() {
 	var stroboscop = true;
 	stroboscopLoop = setInterval(function(){
 		console.log(stroboscop ? "lights on" : "lights off")
@@ -55,19 +45,10 @@ function startStroboscopicMode() {
 	}, 500);
 }
 
-function resetModes(){ 
+function stroboscopic_off()
+{
 	clearInterval(stroboscopLoop);
 }
-
-setInterval(function(){
-	console.log("currentMode : ", currentMode)
-	switch(currentMode) {
-		case "stroboscopic": !stroboscopLoop ? startStroboscopicMode() : null;break;
-		default: resetModes();
-	}
-}, 100); 
-
-
 
 stroboscopic_on();
 
