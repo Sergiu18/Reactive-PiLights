@@ -53,12 +53,12 @@ function stroboscopic_off()
 function rainbow_on()
 {
 
-	for(g=255;g>=199;g--)
-		for(r=199;r<=255;r++)
-			for(b=255;b>=199;b--)	
-				for(g=199;g<=255;g++)
-					for(r=255;r>=199;r--)
-						for(b=199;b<=255;b++)
+	for(g=255;g>=199;g=-2)
+		for(r=199;r<=255;r=+2)
+			for(b=255;b>=199;b=-2)	
+				for(g=199;g<=255;g=+2)
+					for(r=255;r>=199;r=-2)
+						for(b=199;b<=255;b=+2)
 							set_color(r,g,b)
 
 }
