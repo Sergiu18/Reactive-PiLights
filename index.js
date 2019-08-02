@@ -24,7 +24,7 @@ app.get('/api/setColor', (req, res) => {
 	if()
 	res.status(500);
 	res.send({
-		message: `invalid colors ${lightController.state.currentColor.red}, ${lightController.state.currentColor.red}, ${b}`
+		message: `invalid colors ${lightController.state.currentColor.red}, ${lightController.state.currentColor.green}, ${lightController.state.currentColor.blue}`
 	})
 });
 
