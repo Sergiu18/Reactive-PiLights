@@ -17,7 +17,7 @@ app.get('/api/setColor', (req, res) => {
 			error: false,
 			data: {
 				message: "set colors success",
-				colors: {r, g, b}
+				colors: {"red:" r, "green:" g, "blue:" b}
 			}
 		});
 		return;
