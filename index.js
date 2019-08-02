@@ -24,7 +24,6 @@ app.get('/api/setColor', (req, res) => {
 		});
 		return;
 	}
-	if()
 	res.status(500);
 	res.send({
 		message: `invalid colors ${r}, ${g}, ${b}`
