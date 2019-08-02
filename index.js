@@ -8,7 +8,10 @@ const app = express();
 
 app.use('/', express.static('public'));
 
-app.get('/api/lights_off', (req, res) => {lightController.lights_off();});
+app.get('/api/lights_off', (req, res) => {
+	lightController.lights_off();
+	res.send({message: "Lights turned off", color: `Red: 0, Green: 0, Blue: 0`})
+});
 
 app.get('/api/setColor', (req, res) => {
 	const {r, g, b} = req.query;
