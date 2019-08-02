@@ -2,9 +2,6 @@ const lightController = require('./lights_control.js');
 const express = require('express');
 const app = express();
 
-lightController.rainbow_on();
-
-
 app.use('/', express.static('public'));
 
 app.get('/api/lights_off', (req, res) => {
