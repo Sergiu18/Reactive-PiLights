@@ -8,11 +8,7 @@ app.get('/api/lights_off', (req, res) => {
 	lightController.lights_off();
 	res.send(lightController.stroboscopic_off());
 	res.send({message: "Lights turned off", color: `Red: 0, Green: 0, Blue: 0`})
-	const { red, green, blue } = lightController.state.currentColor;
-	red=0;
-	green=0;
-	blue=0;	
-});
+	const { red, green, blue } = lightController.state.currentColor;});
 
 app.get('/api/setColor', (req, res) => {
 	const {r, g, b} = req.query;
