@@ -47,7 +47,7 @@ function stroboscopic_on()
 			lights_off();
 		}
 		stroboscop = !stroboscop;
-	}, 500);
+	}, 100);
 }
 
 function stroboscopic_off()
