@@ -15,10 +15,7 @@ app.get('/api/setColor', (req, res) => {
 		lightController.set_color(r, g, b);
 		res.send({
 			error: false,
-			data: {
-				message: "set colors success",
-				colors: {"red:" r, "green:" g, "blue:" b}
-			}
+			data: {message: `Colors: Red: ${r}, Green: ${g}, Blue: ${b}`}
 		});
 		return;
 	}
