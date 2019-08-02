@@ -2,8 +2,7 @@ const lightController = require('./lights_control.js');
 const express = require('express');
 const app = express();
 
-// lightController.set_color(51, 235, 110);
-// lightController.stroboscopic_on();
+lightController.rainbow_on();
 
 
 app.use('/', express.static('public'));

@@ -10,6 +10,7 @@ var state = {
 		blue: 0
 	},
 	stroboscop: false,
+	rainbow: false
 }
 
 var stroboscopLoop;
@@ -59,19 +60,16 @@ function stroboscopic_off()
 function rainbow_on()
 {
 
-	for(g=255;g>=199;g=-2)
-		for(r=199;r<=255;r=+2)
-			for(b=255;b>=199;b=-2)	
-				for(g=199;g<=255;g=+2)
-					for(r=255;r>=199;r=-2)
-						for(b=199;b<=255;b=+2)
-							set_color(r,g,b)
+	for(g=0;g<=255;g=+2)
+		for(r=0;r<=255;r=+2)
+			for(b=0;b<=255;b=+2)	
+					set_color(r,g,b)
 
 }
 
 function rainbow_off()
 {
-	//clearInterval(stroboscopLoop);
+	state.rainbow = false;
 }
 
 
