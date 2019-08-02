@@ -80,5 +80,7 @@ module.exports = {
 	set_color,
 	stroboscopic_on,
 	stroboscopic_off,
+	rainbow_on,
+	rainbow_off,
 	state
 }
