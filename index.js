@@ -11,7 +11,7 @@ app.use('/', express.static('public'));
 app.get('/api/setColor', (req, res) => {
 	const {r, g, b} = req.query;
 
-	if((r || g || b) && ((r>255 && g>255 && b>255) || (r<0 && g<0 && b<0))) {
+	if((r || g || b) && ((r<=255 && g<=255 && b<=255) || (r>=0 && g>=0 && b>=0))) {
 		lightController.set_color(r, g, b);
 		res.send({
 			error: false,
