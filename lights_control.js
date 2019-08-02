@@ -20,11 +20,6 @@ function lights_off()
 	red.pwmWrite(0);
 	green.pwmWrite(0);
 	blue.pwmWrite(0);
-	state.currentColor =  {
-		red: 0,
-		green: 0,
-		blue: 0
-	}
 }
 
 function set_color(r = 0, g = 0, b = 0)
