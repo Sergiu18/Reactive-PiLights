@@ -36,6 +36,7 @@ function set_color(r, g, b)
 
 function stroboscopic_on()
 {
+	state.stroboscop = true;
 	var stroboscop = true;
 	stroboscopLoop = setInterval(function(){
 		console.log(stroboscop ? "lights on" : "lights off")
@@ -51,6 +52,7 @@ function stroboscopic_on()
 
 function stroboscopic_off()
 {
+	state.stroboscop = false;
 	clearInterval(stroboscopLoop);
 }
 

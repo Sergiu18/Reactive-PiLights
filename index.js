@@ -10,14 +10,29 @@ app.use('/', express.static('public'));
 
 app.get('/api/setColor', (req, res) => {
 	const {r, g, b} = req.query;
-	res.send(lightController.set_color(r, g, b));
+	if(r && g && b) {
+		lightController.set_color(r, g, b);
+		res.send({
+			error: false,
+			data: {
+				message: "set colors success",
+				colors: {r, g, b}
+			}
+		});
+		return;
+	}
+
+	res.status(500);
+	res.send({
+		message: `invalid colors ${r}, ${g}, ${b}`
+	})
 });
 
 app.get('/api/toogleStroboscopic', (req, res) => {
-	if(lightController.state.stroboscop==true)
-		res.send(lightController.stroboscopic_on());
-	else
+	if(lightController.state.stroboscop == true)
 		res.send(lightController.stroboscopic_off());
+	else
+		res.send(lightController.stroboscopic_on());
 });
 
 app.listen(3000)
