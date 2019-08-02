@@ -61,7 +61,7 @@ function stroboscopic_off()
 function rainbow_on()
 {
 
-	var frequency = .3;
+	var frequency = .3
 	for (var i = 0; i < 255; ++i)
 	{
 	   state.currentColor.red   = Math.sin(frequency*i + 0) * 127 + 128;
