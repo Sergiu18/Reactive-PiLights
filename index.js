@@ -34,10 +34,17 @@ app.get('/api/toggleStroboscopic', (req, res) => {
 	if(lightController.state.stroboscop == true)
 	{
 		res.send(lightController.stroboscopic_off(lightController.state.currentColor.red, lightController.state.currentColor.green, lightController.state.currentColor.blue));
-		lightController.set_color(lightController.state.currentColor.red, lightController.state.currentColor.green, lightController.state.currentColor.blue, );
+		lightController.set_color(lightController.state.currentColor.red, lightController.state.currentColor.green, lightController.state.currentColor.blue);
 	}
 	else
-		res.send(lightController.stroboscopic_on());
+		if(lightController.state.currentColor.red && lightController.state.currentColor.green && lightController.state.currentColor.blue)
+			res.send(lightController.stroboscopic_on());
+		else
+		{
+			res.status(500);
+			res.send({message: "Please select colors!"})
+			window.location.href = '/api/setColor';
+		}
 });
 
 app.listen(3000)
