@@ -53,6 +53,7 @@ function stroboscopic_on()
 
 function stroboscopic_off()
 {
+	console.log("stroboscopic_off called");
 	state.stroboscop = false;
 	clearInterval(stroboscopLoop);
 }
@@ -61,7 +62,7 @@ function rainbow_on()
 {
 
 	var frequency = .3;
-	for (var i = 0; i < 32; ++i)
+	for (var i = 0; i < 255; ++i)
 	{
 	   state.currentColor.red   = Math.sin(frequency*i + 0) * 127 + 128;
 	   state.currentColor.green = Math.sin(frequency*i + 2) * 127 + 128;
