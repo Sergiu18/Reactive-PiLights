@@ -2,10 +2,14 @@ const GPIO = require('pigpio').Gpio;
 const red =  new GPIO(27, {mode: GPIO.OUTPUT});
 const green = new GPIO(17, {mode: GPIO.OUTPUT});
 const blue = new GPIO(22, {mode: GPIO.OUTPUT});
-var currentColor = {
-	red: 180,
-	green: 80,
-	blue: 50
+
+var state = {
+	currentColor: {
+		red: 180,
+		green: 80,
+		blue: 50
+	},
+	stroboscop: false,
 }
 
 var stroboscopLoop;
@@ -75,5 +79,6 @@ module.exports = {
 	lights_off,
 	set_color,
 	stroboscopic_on,
-	stroboscopic_off
+	stroboscopic_off,
+	state
 }
