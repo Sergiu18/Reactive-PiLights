@@ -61,9 +61,9 @@ function stroboscopic_off()
 function rainbow_on()
 {
 	 
-	var frequency = .3
+	var frequency = 0.07
 	
-		for (let i = 0; i < 32; ++i)
+		for (let i = 0; i < 100; ++i)
 		{
 			setTimeout(() => {
 			   const red   = Math.round(Math.sin(frequency*i + 0) * 127 + 128);
