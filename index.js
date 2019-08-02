@@ -21,7 +21,7 @@ app.get('/api/setColor', (req, res) => {
 		});
 		return;
 	}
-
+	if()
 	res.status(500);
 	res.send({
 		message: `invalid colors ${r}, ${g}, ${b}`
@@ -30,7 +30,15 @@ app.get('/api/setColor', (req, res) => {
 
 app.get('/api/toogleStroboscopic', (req, res) => {
 	if(lightController.state.stroboscop == true)
-		res.send(lightController.stroboscopic_off());
+	{
+		if(!(r=0 && g=0 && b=0))
+			res.send(lightController.stroboscopic_off());
+		else
+		{
+			lightController.set_color(r, g, b);
+			res.send(lightController.stroboscopic_off());
+		}
+	}
 	else
 		res.send(lightController.stroboscopic_on());
 });
