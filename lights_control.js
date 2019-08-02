@@ -27,7 +27,7 @@ function set_color(r, g, b)
 	green.pwmWrite(g);
 	blue.pwmWrite(b);
 
-	currentColor =  {
+	state.currentColor =  {
 		red: r,
 		green: g,
 		blue: b
@@ -41,7 +41,7 @@ function stroboscopic_on()
 	stroboscopLoop = setInterval(function(){
 		console.log(stroboscop ? "lights on" : "lights off")
 		if(stroboscop){
-			set_color(currentColor.red, currentColor.green, currentColor.blue);
+			set_color(state.currentColor.red, state.currentColor.green, state.currentColor.blue);
 		}
 		else {
 			lights_off();

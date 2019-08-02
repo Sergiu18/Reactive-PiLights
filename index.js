@@ -43,7 +43,6 @@ app.get('/api/toggleStroboscopic', (req, res) => {
 		{
 			res.status(500);
 			res.send({message: "Please select colors!"})
-			window.location.href = '/api/setColor';
 		}
 });
 
