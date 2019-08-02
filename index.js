@@ -9,14 +9,17 @@ const app = express();
 app.use('/', express.static('public'));
 
 app.get('/api/setColor', (req, res) => {
-	const {lightController.state.currentColor.red , lightController.state.currentColor.green, lightController.state.currentColor.blue} = req.query;
-	if(lightController.state.currentColor.red & lightController.state.currentColor.green & lightController.state.currentColor.blue) {
-		lightController.set_color(lightController.state.currentColor.red , lightController.state.currentColor.green, lightController.state.currentColor.blue);
+	const {r, g, b} = req.query;
+	lightController.state.currentColor.red=r;
+	lightController.state.currentColor.green=g;
+	lightController.state.currentColor.blue=b;
+	if(r && g && b) {
+		lightController.set_color(r, g, b);
 		res.send({
 			error: false,
 			data: {
 				message: "set colors success",
-				colors: {lightController.state.currentColor.red , lightController.state.currentColor.green, lightController.state.currentColor.blue}
+				colors: {r, g, b}
 			}
 		});
 		return;
@@ -24,16 +27,15 @@ app.get('/api/setColor', (req, res) => {
 	if()
 	res.status(500);
 	res.send({
-		message: `invalid colors ${lightController.state.currentColor.red}, ${lightController.state.currentColor.green}, ${lightController.state.currentColor.blue}`
+		message: `invalid colors ${r}, ${g}, ${b}`
 	})
 });
 
 app.get('/api/toggleStroboscopic', (req, res) => {
 	if(lightController.state.stroboscop == true)
 	{
-
-		res.send(lightController.stroboscopic_off());
-		lightController.set_color(lightController.state.currentColor.red , lightController.state.currentColor.green, lightController.state.currentColor.blue);
+		res.send(lightController.stroboscopic_off(lightController.state.currentColor.red, lightController.state.currentColor.green, lightController.state.currentColor.blue, ));
+		lightController.set_color(r, g, b);
 	}
 	else
 		res.send(lightController.stroboscopic_on());
