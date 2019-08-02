@@ -62,13 +62,13 @@ function rainbow_on()
 {
 
 	var frequency = .3
-	for (var i = 0; i < 255; ++i)
+	for (let i = 0; i < 32; ++i)
 	{
-	   state.currentColor.red   = Math.sin(frequency*i + 0) * 127 + 128;
-	   state.currentColor.green = Math.sin(frequency*i + 2) * 127 + 128;
-	   state.currentColor.blue  = Math.sin(frequency*i + 4) * 127 + 128;
+	   const red   = Math.round(Math.sin(frequency*i + 0) * 127 + 128);
+	   const green = Math.round(Math.sin(frequency*i + 2) * 127 + 128);
+	   const blue  = Math.round(Math.sin(frequency*i + 4) * 127 + 128);
 	}
-
+	set_color(red, green, blue)
 }
 
 function rainbow_off()
