@@ -16,7 +16,7 @@ app.get('/api/setColor', (req, res) => {
 		{
 			res.status(500);
 			res.send({
-				message: all the colors should be within 0 - 255
+				message: "all the colors should be within 0 - 255"
 		}
 		lightController.set_color(r, g, b);
 		res.send({
