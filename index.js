@@ -11,7 +11,7 @@ app.use('/', express.static('public'));
 app.get('/api/setColor', (req, res) => {
 	const {r, g, b} = req.query;
 
-	if(r && g && b) {
+	if(r || g || b) {
 		lightController.set_color(r, g, b);
 		res.send({
 			error: false,
@@ -37,7 +37,7 @@ app.get('/api/toggleStroboscopic', (req, res) => {
 		lightController.set_color(red, green, blue);
 	}
 	else
-		if(red && green && blue)
+		if(red || green || blue)
 			res.send(lightController.stroboscopic_on());
 		else
 		{

@@ -5,9 +5,9 @@ const blue = new GPIO(22, {mode: GPIO.OUTPUT});
 
 var state = {
 	currentColor: {
-		red: 180,
-		green: 80,
-		blue: 50
+		red: 0,
+		green: 0,
+		blue: 0
 	},
 	stroboscop: false,
 }
@@ -21,7 +21,7 @@ function lights_off()
 	blue.pwmWrite(0);
 }
 
-function set_color(r, g, b)
+function set_color(r = 0, g = 0, b = 0)
 {
 	red.pwmWrite(r);
 	green.pwmWrite(g);
