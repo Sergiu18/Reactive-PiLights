@@ -69,7 +69,7 @@ function rainbow_on()
 		   const green = Math.round(Math.sin(frequency*i + 2) * 127 + 128);
 		   const blue  = Math.round(Math.sin(frequency*i + 4) * 127 + 128);
 		}
-		set_color(red, green, blue)
+		set_color(red, green, blue);
 	}, 100)
 }
 
