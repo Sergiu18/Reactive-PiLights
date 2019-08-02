@@ -11,7 +11,13 @@ app.use('/', express.static('public'));
 app.get('/api/setColor', (req, res) => {
 	const {r, g, b} = req.query;
 
-	if((r || g || b) && ((r<=255 && g<=255 && b<=255) || (r>=0 && g>=0 && b>=0))) {
+	if(r || g || b){
+		if((r>255 || g>255 || b>255) || (r<0 || g<0 || b<0))
+		{
+			res.status(500);
+			res.send({
+				message: all the colors should be within 0 - 255
+		}
 		lightController.set_color(r, g, b);
 		res.send({
 			error: false,
@@ -19,7 +25,7 @@ app.get('/api/setColor', (req, res) => {
 		});
 		return;
 	}
-
+	
 	res.status(500);
 	res.send({
 		message: `Invalid colors: Red: ${r}, Green: ${g}, Blue: ${b}`
