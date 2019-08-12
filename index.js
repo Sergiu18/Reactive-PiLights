@@ -52,12 +52,17 @@ app.get('/api/toggleStroboscopic', (req, res) => {
 });
 
 app.get('/api/toggleRainbow', (req, res) => {
-	if(lightController.state.rainbow && lightController.state.stroboscop==false)
+	if(lightController.state.rainbow)
 		res.send(lightController.rainbow_off());
 	else
 	{
-		res.send(lightController.rainbow_on());
-		console.log("toggleRainbow");
+		if(lightController.state.stroboscop==false)
+		{
+			res.send(lightController.rainbow_on());
+			console.log("toggleRainbow");
+		}
+		else
+			res.send({message: "Please close other modes!"})
 	}
 });
 
