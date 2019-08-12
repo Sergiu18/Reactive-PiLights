@@ -54,7 +54,7 @@ app.get('/api/toggleRainbow', (req, res) => {
 	if(lightController.state.rainbow)
 		res.send(lightController.rainbow_off());
 	else
-		while(state.rainbow==true)
+		while(lightController.state.rainbow==true)
 		{
 			res.send(lightController.rainbow_on());
 			console.log("toggleRainbow");
