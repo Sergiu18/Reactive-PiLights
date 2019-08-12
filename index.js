@@ -47,13 +47,19 @@ app.get('/api/toggleStroboscopic', (req, res) => {
 		else
 		{
 			res.status(500);
-			res.send({message: "Please select colors or close other modes!"})
+			res.send({message: "Please select colors or close other modes before performing this action!"})
 		}
 });
 
 app.get('/api/toggleRainbow', (req, res) => {
 	if(lightController.state.rainbow)
-		res.send(lightController.rainbow_off());
+	{
+		lightController.rainbow_off();
+		res.send({
+			error: false,
+			data: {message: `Colors: Red: ${r}, Green: ${g}, Blue: ${b}`}
+		});
+	}
 	else
 	{
 		if(lightController.state.stroboscop==false)
@@ -62,7 +68,7 @@ app.get('/api/toggleRainbow', (req, res) => {
 			console.log("toggleRainbow");
 		}
 		else
-			res.send({message: "Please close other modes!"})
+			res.send({message: "Please close other modes before performing this action!"})
 	}
 });
 
