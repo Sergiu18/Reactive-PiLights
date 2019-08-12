@@ -53,9 +53,7 @@ app.get('/api/toggleStroboscopic', (req, res) => {
 
 app.get('/api/toggleRainbow', (req, res) => {
 	if(lightController.state.rainbow)
-	{
-		lightController.rainbow_off();
-	}
+		res.send(lightController.rainbow_off());
 	else
 	{
 		if(lightController.state.stroboscop==false)
