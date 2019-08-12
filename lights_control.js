@@ -14,6 +14,7 @@ var state = {
 }
 
 var stroboscopLoop;
+var rainbowLoop;
 
 function lights_off()
 {
@@ -58,7 +59,7 @@ function stroboscopic_off()
 	clearInterval(stroboscopLoop);
 }
 
-function rainbow_on()
+function rainbow_cycle()
 {
 	var frequency = 0.063;
 	for (let i = 0; i < 100; ++i)
@@ -69,22 +70,14 @@ function rainbow_on()
 		   const blue  = Math.round(Math.sin(frequency*i + 4) * 127 + 128);
 		   set_color(red, green, blue);
 	   }, 50*i);
-		//timeouts.push(timeout);
 	}
-	stroboscopLoop = setInterval(function(){
-		//var timeouts = [];
-		for (let i = 0; i < 100; ++i)
-		{
-			const timeout = setTimeout(() => {
-			   const red   = Math.round(Math.sin(frequency*i + 0) * 127 + 128);
-			   const green = Math.round(Math.sin(frequency*i + 2) * 127 + 128);
-			   const blue  = Math.round(Math.sin(frequency*i + 4) * 127 + 128);
-			   set_color(red, green, blue);
-		   }, 50*i);
-			//timeouts.push(timeout);
-		}
-		//timeouts.foreach((timeout) => clearTimeout(timeout));
-	}, 5250);
+}
+
+function rainbow_on()
+{
+	state.rainbow = true;
+	rainbow_cycle();
+	rainbowLoop = setInterval(rainbow_cycle(),5250);
 }
 
 function rainbow_off()
@@ -92,6 +85,7 @@ function rainbow_off()
 	console.log("rainbow_off called");
 	state.rainbow = false;
 	set_color(state.currentColor.red, state.currentColor.green, state.currentColor.blue);
+	clearInterval(rainbowLoop);
 }
 
 
