@@ -83,7 +83,7 @@ function rainbow_on()
 {
 	state.rainbow = true;
 	rainbow_cycle();
-	rainbowLoop = setInterval(rainbow_cycle(),5250);
+	rainbowLoop = setInterval(rainbow_cycle,5250);
 }
 
 function rainbow_off()
