@@ -42,10 +42,12 @@ function stroboscopic_on()
 	var stroboscop = true;
 	stroboscopLoop = setInterval(function(){
 		console.log(stroboscop ? "lights on" : "lights off")
-		if(stroboscop){
+		if(stroboscop)
+		{
 			set_color(state.currentColor.red, state.currentColor.green, state.currentColor.blue);
 		}
-		else {
+		else 
+		{
 			lights_off();
 		}
 		stroboscop = !stroboscop;

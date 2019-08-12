@@ -36,7 +36,7 @@ app.get('/api/setColor', (req, res) => {
 
 app.get('/api/toggleStroboscopic', (req, res) => {
 	const { red, green, blue } = lightController.state.currentColor;
-	if(lightController.state.stroboscop)
+	if(lightController.state.stroboscop && lightController.state.rainbow==false)
 	{
 		res.send(lightController.stroboscopic_off());
 		lightController.set_color(red, green, blue);
