@@ -19,7 +19,7 @@ app.get('/api/setColor', (req, res) => {
 		if((r>255 || g>255 || b>255) || (r<0 || g<0 || b<0))
 		{
 			res.status(500);
-			res.send({message: "All the parameters must be digits within 0 - 255"})
+			res.send({message: "All the parameters must be numbers within 0 - 255"})
 			return
 		}
 		lightController.set_color(r, g, b);
@@ -36,23 +36,23 @@ app.get('/api/setColor', (req, res) => {
 
 app.get('/api/toggleStroboscopic', (req, res) => {
 	const { red, green, blue } = lightController.state.currentColor;
-	if(lightController.state.stroboscop && lightController.state.rainbow==false)
+	if(lightController.state.stroboscop)
 	{
 		res.send(lightController.stroboscopic_off());
 		lightController.set_color(red, green, blue);
 	}
 	else
-		if(red || green || blue)
+		if((red || green || blue) && lightController.state.rainbow==false)
 			res.send(lightController.stroboscopic_on());
 		else
 		{
 			res.status(500);
-			res.send({message: "Please select colors!"})
+			res.send({message: "Please select colors or close other modes!"})
 		}
 });
 
 app.get('/api/toggleRainbow', (req, res) => {
-	if(lightController.state.rainbow==true)
+	if(lightController.state.rainbow && lightController.state.stroboscop==false)
 		res.send(lightController.rainbow_off());
 	else
 	{
