@@ -69,9 +69,9 @@ function rainbow_cycle()
 		   const red   = Math.round(Math.sin(frequency*i + 0) * 127 + 128);
 		   const green = Math.round(Math.sin(frequency*i + 2) * 127 + 128);
 		   const blue  = Math.round(Math.sin(frequency*i + 4) * 127 + 128);
-		   pwmWrite(r);
-			pwmWrite(g);
-			pwmWrite(b);
+		   red.pwmWrite(r);
+			green.pwmWrite(g);
+			blue.pwmWrite(b);
 	   }, 50*i);
 	}
 }
