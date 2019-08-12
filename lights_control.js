@@ -64,11 +64,14 @@ function rainbow_cycle()
 	var frequency = 0.063;
 	for (let i = 0; i < 100; ++i)
 	{
+		if(state.rainbow==true)
 		setTimeout(() => {
 		   const red   = Math.round(Math.sin(frequency*i + 0) * 127 + 128);
 		   const green = Math.round(Math.sin(frequency*i + 2) * 127 + 128);
 		   const blue  = Math.round(Math.sin(frequency*i + 4) * 127 + 128);
-		   set_color(red, green, blue);
+		   pwmWrite(r);
+			pwmWrite(g);
+			pwmWrite(b);
 	   }, 50*i);
 	}
 }
