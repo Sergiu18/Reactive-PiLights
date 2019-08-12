@@ -61,8 +61,6 @@ function stroboscopic_off()
 function rainbow_on()
 {
 	var frequency = 0.065
-	//while(state.rainbow==true)
-	//{
 		for (let i = 0; i < 100; ++i)
 		{
 			setTimeout(() => {
@@ -72,7 +70,6 @@ function rainbow_on()
 			   set_color(red, green, blue);
 		   }, 50*i);
 		}
-	//}
 }
 
 function rainbow_off()
