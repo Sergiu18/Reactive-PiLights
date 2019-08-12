@@ -89,7 +89,9 @@ function rainbow_on()
 
 function rainbow_off()
 {
+	console.log("rainbow_off called");
 	state.rainbow = false;
+	set_color(state.currentColor.red, state.currentColor.green, state.currentColor.blue);
 }
 
 
