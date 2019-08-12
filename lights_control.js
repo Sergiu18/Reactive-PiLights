@@ -60,7 +60,7 @@ function stroboscopic_off()
 
 function rainbow_on()
 {
-	 
+	state.rainbow = true;
 	var frequency = 0.065
 	while(state.rainbow==true)
 	{
