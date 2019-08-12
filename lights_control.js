@@ -62,7 +62,7 @@ function rainbow_on()
 {
 	var frequency = 0.065;
 	stroboscopLoop = setInterval(function(){
-		var timeouts = [];
+		//var timeouts = [];
 		for (let i = 0; i < 100; ++i)
 		{
 			const timeout = setTimeout(() => {
@@ -71,10 +71,10 @@ function rainbow_on()
 			   const blue  = Math.round(Math.sin(frequency*i + 4) * 127 + 128);
 			   set_color(red, green, blue);
 		   }, 50*i);
-			timeouts.push(timeout);
+			//timeouts.push(timeout);
 		}
-		timeouts.foreach((timeout) => clearTimeout(timeout));
-	}, 5000);
+		//timeouts.foreach((timeout) => clearTimeout(timeout));
+	}, 5500);
 }
 
 function rainbow_off()
