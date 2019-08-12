@@ -6,9 +6,9 @@ app.use('/', express.static('public'));
 
 app.get('/api/lights_off', (req, res) => {
 	console.log("lights_off called")
-	lightController.lights_off();
 	lightController.stroboscopic_off();
 	lightController.rainbow_off();
+	lightController.lights_off();
 	res.send({message: "Lights turned off", color: `Red: 0, Green: 0, Blue: 0`})
 });
 
