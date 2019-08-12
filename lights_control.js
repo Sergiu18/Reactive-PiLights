@@ -60,7 +60,7 @@ function stroboscopic_off()
 
 function rainbow_on()
 {
-	var frequency = 0.062;
+	var frequency = 0.063;
 	stroboscopLoop = setInterval(function(){
 		//var timeouts = [];
 		for (let i = 0; i < 100; ++i)
