@@ -61,7 +61,7 @@ function stroboscopic_off()
 function rainbow_on()
 {
 	 
-	var frequency = 0.06
+	var frequency = 0.065
 	
 		for (let i = 0; i < 100; ++i)
 		{
