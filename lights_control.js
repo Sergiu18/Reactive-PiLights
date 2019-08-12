@@ -66,14 +66,14 @@ function rainbow_cycle()
 	{
 		if(state.rainbow==true)
 		{
-			setTimeout(() => {
-		   const r   = Math.round(Math.sin(frequency*i + 0) * 127 + 128);
-		   const g = Math.round(Math.sin(frequency*i + 2) * 127 + 128);
-		   const b  = Math.round(Math.sin(frequency*i + 4) * 127 + 128);
-		   red.pwmWrite(r);
-			green.pwmWrite(g);
-			blue.pwmWrite(b);
-		   }, 50*i);
+			setTimeout(function() => {
+				const r   = Math.round(Math.sin(frequency*i + 0) * 127 + 128);
+				const g = Math.round(Math.sin(frequency*i + 2) * 127 + 128);
+			 	const b  = Math.round(Math.sin(frequency*i + 4) * 127 + 128);
+			   	red.pwmWrite(r);
+				green.pwmWrite(g);
+				blue.pwmWrite(b);
+		   	}, 50*i);
 		}
 		
 	}
