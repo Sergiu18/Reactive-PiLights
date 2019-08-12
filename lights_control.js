@@ -73,7 +73,7 @@ function rainbow_on()
 		   }, 50*i);
 			timeouts.push(timeout);
 		}
-		timeout.foreach((timeout) => clearTimeout(timeout));
+		timeouts.foreach((timeout) => clearTimeout(timeout));
 	}, 5000);
 }
 
