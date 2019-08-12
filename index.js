@@ -55,10 +55,6 @@ app.get('/api/toggleRainbow', (req, res) => {
 	if(lightController.state.rainbow)
 	{
 		lightController.rainbow_off();
-		res.send({
-			error: false,
-			data: {message: `Colors: Red: ${r}, Green: ${g}, Blue: ${b}`}
-		});
 	}
 	else
 	{
