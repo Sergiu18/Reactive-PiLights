@@ -19,11 +19,8 @@ app.get('/api/lights_off', (req, res) => {
 
 app.get('/api/modes_off', (req, res) => {
 	console.log("modes_off called")
-	function modesOff()
-	{
-		lightController.stroboscopic_off();
-		lightController.rainbow_off();
-	}
+	lightController.stroboscopic_off();
+	lightController.rainbow_off();
 	res.send({message: "Modes turned off", colors:` Red: ${r}, Green: ${g}, Blue: ${b}`})
 });
 
@@ -51,7 +48,8 @@ app.get('/api/setColor', (req, res) => {
 });
 
 app.get('/api/toggleStroboscopic', (req, res) => {
-	modesOff()
+	lightController.stroboscopic_off();
+	lightController.rainbow_off();
 	const { red, green, blue } = lightController.state.currentColor;
 	if(lightController.state.stroboscop)
 	{
@@ -73,7 +71,8 @@ app.get('/api/toggleStroboscopic', (req, res) => {
 });
 
 app.get('/api/toggleRainbow', (req, res) => {
-	modesOff()
+	lightController.stroboscopic_off();
+	lightController.rainbow_off();
 	if(lightController.state.rainbow)
 	{
 		lightController.rainbow_off();
