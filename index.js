@@ -88,11 +88,11 @@ app.get('/api/toggleRainbow', cors(), (req, res) => {
 
 app.get('/api/returnState', cors(), (req, res) => {
 	if(lightController.state.stroboscop && lightController.state.rainbow == false)
-		return {message: "strobo"}
+		res.send({message: "strobo"})
 	if(lightController.state.stroboscop == false && lightController.state.rainbow)
-		return {message: "rainbow"}
+		res.send({message: "rainbow"})
 	if(lightController.state.stroboscop == false && lightController.state.rainbow == false)
-		return {message: "mode"}
+		res.send({message: "mode"})
 });
 
 
