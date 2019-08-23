@@ -1,13 +1,13 @@
 const lightController = require('./lights_control.js');
 const express = require('express');
 const app = express();
-const cors = require('cors')
+//const cors = require('cors')
 
 app.use('/', express.static('public'));
 
-app.get('/with-cors', cors(), (req, res, next) => {
-  res.json({ msg: 'WHOAH with CORS it works! 🔝 🎉' })
-})
+// app.get('/with-cors', cors(), (req, res, next) => {
+//   res.json({ msg: 'WHOAH with CORS it works! 🔝 🎉' })
+// })
 
 app.get('/api/lights_off', (req, res) => {
 	console.log("lights_off called")
