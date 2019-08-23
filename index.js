@@ -21,7 +21,7 @@ app.get('/api/modes_off', (req, res) => {
 	console.log("modes_off called")
 	lightController.stroboscopic_off();
 	lightController.rainbow_off();
-	res.send({message: "Modes turned off", colors:` Red: ${r}, Green: ${g}, Blue: ${b}`})
+	res.send({message: "Modes turned off"})
 });
 
 
