@@ -1,15 +1,12 @@
 const lightController = require('./lights_control.js');
 const express = require('express');
+const cors = require('cors');
+
 const app = express();
-const cors = require('cors')
 
 app.use('/', express.static('public'));
 
-app.get('/with-cors', cors(), (req, res, next) => {
-  res.json({ msg: 'WHOAH with CORS it works! 🔝 🎉' })
-})
-
-app.get('/api/lights_off', (req, res) => {
+app.get('/api/lights_off', cors(), (req, res) => {
 	console.log("lights_off called")
 	lightController.stroboscopic_off();
 	lightController.rainbow_off();
@@ -17,7 +14,7 @@ app.get('/api/lights_off', (req, res) => {
 	res.send({message: "Lights turned off", color: `Red: 0, Green: 0, Blue: 0`})
 });
 
-app.get('/api/modes_off', (req, res) => {
+app.get('/api/modes_off', cors(), (req, res) => {
 	console.log("modes_off called")
 	lightController.stroboscopic_off();
 	lightController.rainbow_off();
@@ -25,7 +22,7 @@ app.get('/api/modes_off', (req, res) => {
 });
 
 
-app.get('/api/setColor', (req, res) => {
+app.get('/api/setColor', cors(), (req, res) => {
 	const {r, g, b} = req.query;
 
 	if(r || g || b){
@@ -47,7 +44,7 @@ app.get('/api/setColor', (req, res) => {
 	res.send({message: `Invalid colors: Red: ${r}, Green: ${g}, Blue: ${b}`})
 });
 
-app.get('/api/toggleStroboscopic', (req, res) => {
+app.get('/api/toggleStroboscopic', cors(), (req, res) => {
 	lightController.rainbow_off();
 	const { red, green, blue } = lightController.state.currentColor;
 	if(lightController.state.stroboscop)
@@ -69,7 +66,7 @@ app.get('/api/toggleStroboscopic', (req, res) => {
 		}
 });
 
-app.get('/api/toggleRainbow', (req, res) => {
+app.get('/api/toggleRainbow', cors(), (req, res) => {
 	lightController.stroboscopic_off();
 	if(lightController.state.rainbow)
 	{
