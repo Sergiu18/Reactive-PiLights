@@ -87,14 +87,29 @@ app.get('/api/toggleRainbow', cors(), (req, res) => {
 });
 
 app.get('/api/returnState', cors(), (req, res) => {
+	const { red, green, blue } = lightController.state.currentColor;
+	let currentMode = "mode";
+
 	if(lightController.state.stroboscop && lightController.state.rainbow == false)
-		res.send({message: "strobo"})
+		currentMode = "strobo";
 	if(lightController.state.stroboscop == false && lightController.state.rainbow)
-		res.send({message: "rainbow"})
-	if(lightController.state.stroboscop == false && lightController.state.rainbow == false)
-		res.send({message: "mode"})
+		currentMode = "rainbow";
+
+	console.log("Getting state called")
+	res.send({
+		state: {
+			background: {
+				r: red,
+				b: blue,
+				g: green
+			},
+			currentMode: currentMode
+		}
+	})
 });
 
 
-app.listen(3000)
+app.listen(3000, () => {
+	console.log("Listening on port 3000");
+})
 
