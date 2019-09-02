@@ -40,7 +40,7 @@ app.get('/api/lights_off', cors(), (req, res) => {
 	console.log("lights_off called")
 	lightController.stroboscopic_off();
 	lightController.rainbow_off();
-	lightController.lights_off();
+	lightController.lights_off(true);
 	res.send(getRes(false, "Lights turned off"))
 });
 
