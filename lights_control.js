@@ -16,18 +16,11 @@ var state = {
 var stroboscopLoop;
 var rainbowLoop;
 
-function lights_off(shouldSetState)
+function lights_off()
 {
 	red.pwmWrite(0);
 	green.pwmWrite(0);
 	blue.pwmWrite(0);
-
-	if(shouldSetState)
-		state.currentColor =  {
-		red: r,
-		green: g,
-		blue: b
-	}
 
 }
 
