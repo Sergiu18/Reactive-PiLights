@@ -53,6 +53,8 @@ app.get('/api/modes_off', cors(), (req, res) => {
 
 
 app.get('/api/setColor', cors(), (req, res) => {
+	lightController.stroboscopic_off();
+	lightController.rainbow_off();
 	const {r, g, b} = req.query;
 
 	if(r || g || b)
