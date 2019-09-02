@@ -56,7 +56,7 @@ app.get('/api/setColor', cors(), (req, res) => {
 			error: false,
 			data: {
 				message: `Colors: Red: ${r}, Green: ${g}, Blue: ${b}`,
-				state: getState();
+				state: getState()
 			}
 		});
 		return;
