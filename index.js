@@ -4,7 +4,7 @@ const cors = require('cors');
 
 const app = express();
 
-function ge	state: getState();
+function getSate: getState();
 {
 	const { red, green, blue } = lightController.state.currentColor;
 	let currentMode = "mode";
