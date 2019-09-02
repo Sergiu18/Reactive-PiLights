@@ -71,7 +71,7 @@ app.get('/api/setColor', cors(), (req, res) => {
 	const message =  `Colors: Red: ${r}, Green: ${g}, Blue: ${b}`;
 	res.status(500);
 	res.send(getRes(true, message))
-};
+});
 
 app.get('/api/toggleStroboscopic', cors(), (req, res) => {
 	lightController.rainbow_off();
