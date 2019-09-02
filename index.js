@@ -30,7 +30,7 @@ app.get('/api/lights_off', cors(), (req, res) => {
 	lightController.stroboscopic_off();
 	lightController.rainbow_off();
 	lightController.lights_off();
-	res.send({message: "Lights turned off", color: `Red: 0, Green: 0, Blue: 0`}, state: getState())
+	res.send({message: "Lights turned off", color: `Red: 0, Green: 0, Blue: 0`, state: getState()})
 });
 
 app.get('/api/modes_off', cors(), (req, res) => {
