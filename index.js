@@ -25,13 +25,12 @@ function getState()
 
 function getRes(error, message)
 {
-	return
-	{
+	return {
 		error: error,
-			data: {
-				message: message,
-				state: getState()
-			}
+		data: {
+			message: message,
+			state: getState()
+		}
 	}
 }
 
@@ -42,14 +41,14 @@ app.get('/api/lights_off', cors(), (req, res) => {
 	lightController.stroboscopic_off();
 	lightController.rainbow_off();
 	lightController.lights_off();
-	res.send({getRes(false, "Lights turned off")})
+	res.send(getRes(false, "Lights turned off"))
 });
 
 app.get('/api/modes_off', cors(), (req, res) => {
 	console.log("modes_off called")
 	lightController.stroboscopic_off();
 	lightController.rainbow_off();
-	res.send({getRes(false, "Modes turned off")})
+	res.send(getRes(false, "Modes turned off"))
 });
 
 
@@ -61,17 +60,17 @@ app.get('/api/setColor', cors(), (req, res) => {
 		if((r>255 || g>255 || b>255) || (r<0 || g<0 || b<0))
 		{
 			res.status(500);
-			res.send({getRes(true, "All the parameters must be numbers within 0 - 255")})
+			res.send(getRes(true, "All the parameters must be numbers within 0 - 255"))
 			return;
 		}
 		lightController.set_color(r, g, b);
-		let message =  `Colors: Red: ${r}, Green: ${g}, Blue: ${b}`;
-		res.send({getRes(false, message) });
+		const message =  `Colors: Red: ${r}, Green: ${g}, Blue: ${b}`;
+		res.send(getRes(false, message));
 		return;
 	}
 	const message =  `Colors: Red: ${r}, Green: ${g}, Blue: ${b}`;
 	res.status(500);
-	res.send({getRes(true, message)})
+	res.send(getRes(true, message))
 };
 
 app.get('/api/toggleStroboscopic', cors(), (req, res) => {
@@ -80,19 +79,19 @@ app.get('/api/toggleStroboscopic', cors(), (req, res) => {
 	if(lightController.state.stroboscop)
 	{
 		lightController.stroboscopic_off();
-		res.send({getRes(false, "Stroboscopic turned off") })
+		res.send(getRes(false, "Stroboscopic turned off"))
 		lightController.set_color(red, green, blue);
 	}
 	else
 		if((red || green || blue) && lightController.state.rainbow==false)
 		{
 			lightController.stroboscopic_on();
-			res.send({getRes(false, "Stroboscopic turned on")})
+			res.send(getRes(false, "Stroboscopic turned on"))
 		}	
 		else
 		{
 			res.status(500);
-			res.send({getRes(true, "Please select colors before performing this action!")})
+			res.send(getRes(true, "Please select colors before performing this action!"))
 		}
 });
 
@@ -101,23 +100,23 @@ app.get('/api/toggleRainbow', cors(), (req, res) => {
 	if(lightController.state.rainbow)
 	{
 		lightController.rainbow_off();
-		res.send({getRes(false, "Rainbow turned off") })
+		res.send(getRes(false, "Rainbow turned off"))
 	}
 	else
 	{
 		if(lightController.state.stroboscop==false)
 		{
 			lightController.rainbow_on();
-			res.send({getRes(false, "Rainbow turned on") })
+			res.send(getRes(false, "Rainbow turned on"))
 		}
 		else
-			res.send({getRes(true, "Lights turned off??") })
+			res.send(getRes(true, "Lights turned off??"))
 	}
 });
 
 app.get('/api/returnState', cors(), (req, res) => {
 	console.log("Getting state called")
-	res.send({getRes(false, "State get") })
+	res.send(getRes(false, "State get"))
 	state: getState();
 });
 
