@@ -24,15 +24,6 @@ function getState()
 		currentMode: currentMode,
 		lightState: lightState
 	}	
-	console.log({
-		background: {
-			r: red,
-			b: blue,
-			g: green
-		},
-		currentMode: currentMode,
-		lightState: lightState
-	})
 }
 
 function getRes(error, message)
