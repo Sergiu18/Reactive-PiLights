@@ -9,6 +9,8 @@ function getState()
 	const { red, green, blue } = lightController.state.currentColor;
 	let currentMode = "mode";
 	let lightState = true;
+	if(red == 0 && green == 0 && blue == 0)
+		lightState = false;
 	if(lightController.state.stroboscop && lightController.state.rainbow == false)
 		currentMode = "strobo";
 	if(lightController.state.stroboscop == false && lightController.state.rainbow)
@@ -16,8 +18,6 @@ function getState()
 		currentMode = "rainbow";
 		lightState = true;
 	}
-	if(red == 0 && green == 0 && blue == 0)
-		lightState = false;
 	return {
 		background: {
 			r: red,
