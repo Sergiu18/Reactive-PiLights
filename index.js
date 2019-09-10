@@ -105,6 +105,7 @@ app.get('/api/toggleRainbow', cors(), (req, res) => {
 		{
 			lightController.rainbow_on();
 			res.send(getRes(false, "Rainbow turned on"))
+			this.setState(lightState:true)
 		}
 		else
 			res.send(getRes(true, "Lights turned off??"))
