@@ -94,6 +94,7 @@ app.get('/api/toggleStroboscopic', cors(), (req, res) => {
 
 app.get('/api/toggleRainbow', cors(), (req, res) => {
 	lightController.stroboscopic_off();
+	lightController.lightState = true;
 	if(lightController.state.rainbow)
 	{
 		lightController.rainbow_off();
