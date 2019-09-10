@@ -12,8 +12,11 @@ function getState()
 	if(lightController.state.stroboscop && lightController.state.rainbow == false)
 		currentMode = "strobo";
 	if(lightController.state.stroboscop == false && lightController.state.rainbow)
+	{
 		currentMode = "rainbow";
-	if((red == 0 && green == 0 && blue == 0) || currentMode != "rainbow")
+		lightState = true;
+	}
+	if(red == 0 && green == 0 && blue == 0)
 		lightState = false;
 	return {
 		background: {
