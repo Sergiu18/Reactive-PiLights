@@ -13,7 +13,7 @@ function getState()
 		currentMode = "strobo";
 	if(lightController.state.stroboscop == false && lightController.state.rainbow)
 		currentMode = "rainbow";
-	if(red == 0 && green == 0 && blue == 0)
+	if((red == 0 && green == 0 && blue == 0) || currentMode != "rainbow")
 		lightState = false;
 	return {
 		background: {
@@ -94,7 +94,6 @@ app.get('/api/toggleStroboscopic', cors(), (req, res) => {
 
 app.get('/api/toggleRainbow', cors(), (req, res) => {
 	lightController.stroboscopic_off();
-	lightController.lightState = true;
 	if(lightController.state.rainbow)
 	{
 		lightController.rainbow_off();
