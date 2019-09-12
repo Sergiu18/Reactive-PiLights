@@ -1,62 +1,129 @@
 const lightController = require('./lights_control.js');
 const express = require('express');
+const cors = require('cors');
+
 const app = express();
+
+function getState()
+{
+	const { red, green, blue } = lightController.state.currentColor;
+	let currentMode = "mode";
+	let lightState = true;
+	if(red == 0 && green == 0 && blue == 0)
+		lightState = false;
+	if(lightController.state.stroboscop && lightController.state.rainbow == false)
+		currentMode = "strobo";
+	if(lightController.state.stroboscop == false && lightController.state.rainbow)
+	{
+		currentMode = "rainbow";
+		lightState = true;
+	}
+	return {
+		background: {
+			r: red,
+			b: blue,
+			g: green
+		},
+		currentMode: currentMode,
+		lightState: lightState
+	}	
+}
+
+function getRes(error, message)
+{
+	return {
+		error: error,
+		data: {
+			message: message,
+			state: getState()
+		}
+	}
+}
 
 app.use('/', express.static('public'));
 
-app.get('/api/lights_off', (req, res) => {
-	console.log("lights_off called")
-	lightController.lights_off();
+app.get('/api/modes_off', cors(), (req, res) => {
+	console.log("modes_off called")
 	lightController.stroboscopic_off();
-	res.send({message: "Lights turned off", color: `Red: 0, Green: 0, Blue: 0`})
+	lightController.rainbow_off();
+	res.send(getRes(false, "Modes turned off"))
 });
 
-app.get('/api/setColor', (req, res) => {
+
+app.get('/api/setColor', cors(), (req, res) => {
+	lightController.stroboscopic_off();
+	lightController.rainbow_off();
 	const {r, g, b} = req.query;
 
-	if(r || g || b){
+	if(r || g || b)
+	{
 		if((r>255 || g>255 || b>255) || (r<0 || g<0 || b<0))
 		{
 			res.status(500);
-			res.send({message: "All the parameters must be digits within 0 - 255"})
-			return
+			res.send(getRes(true, "All the parameters must be numbers within 0 - 255"))
+			return;
 		}
 		lightController.set_color(r, g, b);
-		res.send({
-			error: false,
-			data: {message: `Colors: Red: ${r}, Green: ${g}, Blue: ${b}`}
-		});
+		const message =  `Colors: Red: ${r}, Green: ${g}, Blue: ${b}`;
+		res.send(getRes(false, message));
 		return;
 	}
-	
+	const message =  `Colors: Red: ${r}, Green: ${g}, Blue: ${b}`;
 	res.status(500);
-	res.send({message: `Invalid colors: Red: ${r}, Green: ${g}, Blue: ${b}`})
+	res.send(getRes(true, message))
 });
 
-app.get('/api/toggleStroboscopic', (req, res) => {
+app.get('/api/toggleStroboscopic', cors(), (req, res) => {
+	lightController.rainbow_off();
+	lightController.set_color(255, 255, 255)
+	
 	const { red, green, blue } = lightController.state.currentColor;
 	if(lightController.state.stroboscop)
 	{
-		res.send(lightController.stroboscopic_off());
+		lightController.stroboscopic_off();
+		res.send(getRes(false, "Stroboscopic turned off"))
 		lightController.set_color(red, green, blue);
 	}
 	else
-		if(red || green || blue)
-			res.send(lightController.stroboscopic_on());
+		if((red || green || blue) && lightController.state.rainbow==false)
+		{
+			lightController.stroboscopic_on();
+			res.send(getRes(false, "Stroboscopic turned on"))
+		}	
 		else
 		{
 			res.status(500);
-			res.send({message: "Please select colors!"})
+			res.send(getRes(true, "Please select colors before performing this action!"))
 		}
 });
 
-app.get('/api/toggleRainbow', (req, res) => {
+app.get('/api/toggleRainbow', cors(), (req, res) => {
+	lightController.stroboscopic_off();
 	if(lightController.state.rainbow)
-		res.send(lightController.rainbow_off());
+	{
+		lightController.rainbow_off();
+		res.send(getRes(false, "Rainbow turned off"))
+	}
 	else
-		res.send(lightController.rainbow_on());
+	{
+		if(lightController.state.stroboscop==false)
+		{
+			lightController.rainbow_on();
+			res.send(getRes(false, "Rainbow turned on"))
+		}
+		else
+			res.send(getRes(true, "Lights turned off??"))
+	}
+});
+
+app.get('/api/returnState', cors(), (req, res) => {
+	console.log("Getting state called")
+	res.send(getRes(false, "State get"))
+	state: getState();
 });
 
 
-app.listen(3000)
+app.listen(3000, () => {
+	console.log("Listening on port 3000");
+})
 
