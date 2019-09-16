@@ -6,7 +6,9 @@ const socketIo = require("socket.io");
 
 const getApiAndEmit = "TODO"
 const app = express();
-const io = socketIo(app); // < Interesting!
+const server = http.createServer(app);
+
+const io = socketIo(server); // < Interesting!
 
 
 function getState()
