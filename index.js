@@ -1,14 +1,8 @@
 const lightController = require('./lights_control.js');
 const express = require('express');
 const cors = require('cors');
-const http = require("http");
-const socketIo = require("socket.io");
 
-const getApiAndEmit = "TODO"
 const app = express();
-const server = http.createServer(app);
-
-const io = socketIo(server);
 
 
 function getState()
@@ -80,22 +74,22 @@ app.get('/api/setColor', cors(), (req, res) => {
 	res.send(getRes(true, message))
 });
 
-express.Router().get("/", (req, res) => {
-  res.send({ response: "I am alive" }).status(200);
-});
+// express.Router().get("/", (req, res) => {
+//   res.send({ response: "I am alive" }).status(200);
+// });
 
-let interval;
+// let interval;
 
-io.on("connection", socket => {
-  console.log("New client connected");
-  if (interval) {
-    clearInterval(interval);
-  }
-  interval = setInterval(() => getApiAndEmit(socket), 10000);
-  socket.on("disconnect", () => {
-    console.log("Client disconnected");
-  });
-});
+// io.on("connection", socket => {
+//   console.log("New client connected");
+//   if (interval) {
+//     clearInterval(interval);
+//   }
+//   interval = setInterval(() => getApiAndEmit(socket), 10000);
+//   socket.on("disconnect", () => {
+//     console.log("Client disconnected");
+//   });
+// });
 
 
 app.get('/api/toggleStroboscopic', cors(), (req, res) => {
@@ -147,9 +141,18 @@ app.get('/api/returnState', cors(), (req, res) => {
 	state: getState();
 });
 
-server.listen(3000, () => console.log(`Listening on port 3000`));
+//server.listen(3000, () => console.log(`Listening on port 3000`));
 
 app.listen(3000, () => {
 	console.log("Listening on port 3000");
 })
+
+// io.on('connection', function (socket) {
+//   //socket.emit('news', { hello: 'world' });
+//   // socket.on('my other event', function (data) {
+//   //   console.log(data);
+//   // });
+
+//   console.log("connected");
+// });
 
