@@ -8,7 +8,7 @@ const getApiAndEmit = "TODO"
 const app = express();
 const server = http.createServer(app);
 
-const io = socketIo(server); // < Interesting!
+const io = socketIo(server);
 
 
 function getState()
