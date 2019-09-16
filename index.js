@@ -1,10 +1,9 @@
 const lightController = require('./lights_control.js');
 const express = require('express');
 const cors = require('cors');
-
 const app = express();
 
-app.use('/', express.static('public'));
+app.use('/', express.static('reactApp'));
 
 
 function getState()
@@ -75,24 +74,6 @@ app.get('/api/setColor', cors(), (req, res) => {
 	res.send(getRes(true, message))
 });
 
-// express.Router().get("/", (req, res) => {
-//   res.send({ response: "I am alive" }).status(200);
-// });
-
-// let interval;
-
-// io.on("connection", socket => {
-//   console.log("New client connected");
-//   if (interval) {
-//     clearInterval(interval);
-//   }
-//   interval = setInterval(() => getApiAndEmit(socket), 10000);
-//   socket.on("disconnect", () => {
-//     console.log("Client disconnected");
-//   });
-// });
-
-
 app.get('/api/toggleStroboscopic', cors(), (req, res) => {
 	lightController.rainbow_off();
 	lightController.set_color(255, 255, 255)
@@ -142,18 +123,8 @@ app.get('/api/returnState', cors(), (req, res) => {
 	state: getState();
 });
 
-//server.listen(3000, () => console.log(`Listening on port 3000`));
-
 app.listen(3000, () => {
 	console.log("Listening on port 3000");
 })
 
-// io.on('connection', function (socket) {
-//   //socket.emit('news', { hello: 'world' });
-//   // socket.on('my other event', function (data) {
-//   //   console.log(data);
-//   // });
-
-//   console.log("connected");
-// });
 
