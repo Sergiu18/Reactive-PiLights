@@ -4,6 +4,8 @@ const cors = require('cors');
 
 const app = express();
 
+app.use('/', express.static('public'));
+
 
 function getState()
 {
@@ -41,7 +43,6 @@ function getRes(error, message)
 	}
 }
 
-app.use('/', express.static('public'));
 
 app.get('/api/modes_off', cors(), (req, res) => {
 	console.log("modes_off called")
@@ -145,6 +146,7 @@ app.get('/api/returnState', cors(), (req, res) => {
 
 app.listen(3000, () => {
 	console.log("Listening on port 3000");
+	console.log("new message");
 })
 
 // io.on('connection', function (socket) {
