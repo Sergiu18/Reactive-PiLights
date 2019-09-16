@@ -93,7 +93,7 @@ io.on("connection", socket => {
   socket.on("disconnect", () => {
     console.log("Client disconnected");
   });
-};
+});
 
 
 app.get('/api/toggleStroboscopic', cors(), (req, res) => {
