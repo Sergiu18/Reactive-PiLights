@@ -1,8 +1,13 @@
 const lightController = require('./lights_control.js');
 const express = require('express');
 const cors = require('cors');
+const http = require("http");
+const socketIo = require("socket.io");
 
+const getApiAndEmit = "TODO"
 const app = express();
+const io = socketIo(app); // < Interesting!
+
 
 function getState()
 {
@@ -73,6 +78,24 @@ app.get('/api/setColor', cors(), (req, res) => {
 	res.send(getRes(true, message))
 });
 
+express.Router().get("/", (req, res) => {
+  res.send({ response: "I am alive" }).status(200);
+});
+
+let interval;
+
+io.on("connection", socket => {
+  console.log("New client connected");
+  if (interval) {
+    clearInterval(interval);
+  }
+  interval = setInterval(() => getApiAndEmit(socket), 10000);
+  socket.on("disconnect", () => {
+    console.log("Client disconnected");
+  });
+};
+
+
 app.get('/api/toggleStroboscopic', cors(), (req, res) => {
 	lightController.rainbow_off();
 	lightController.set_color(255, 255, 255)
@@ -122,6 +145,7 @@ app.get('/api/returnState', cors(), (req, res) => {
 	state: getState();
 });
 
+app.listen(port, () => console.log(`Listening on port ${port}`));
 
 app.listen(3000, () => {
 	console.log("Listening on port 3000");
