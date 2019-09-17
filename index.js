@@ -5,9 +5,8 @@ const app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-app.use('/', express.static('reactApp/build'));
-
-
+app.use(express.static(__dirname + '/reactApp/build'));
+console.log(__dirname + '/reactApp/build');
 function getState()
 {
 	const { red, green, blue } = lightController.state.currentColor;
