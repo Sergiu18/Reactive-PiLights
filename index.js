@@ -6,7 +6,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 app.use(express.static(__dirname + '/reactApp/build'));
-console.log(__dirname + '/reactApp/build');
+
 function getState()
 {
 	const { red, green, blue } = lightController.state.currentColor;
@@ -42,6 +42,13 @@ function getRes(error, message)
 		}
 	}
 }
+
+app.get('/api/xxx', cors(), (req, res) => {
+
+
+	io.emit('xxx', 'xxx');
+	res.send({});
+})
 
 
 app.get('/api/modes_off', cors(), (req, res) => {
@@ -121,7 +128,7 @@ app.get('/api/toggleRainbow', cors(), (req, res) => {
 app.get('/api/returnState', cors(), (req, res) => {
 	console.log("Getting state called 2")
 	res.send(getRes(false, "State get"))
-	state: getState();
+	state: getState(); // this does not work
 });
 
 http.listen(3000, () => {

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import  ColorPicker  from './components/colorPicker.js';
 import  ModeSection  from './components/modeSection.js';
-import {returnState} from './components/server-comunication.js'
+import {returnState} from './components/server-comunication.js';
+import io from 'socket.io';
 
 export default class App extends Component 
 {
@@ -14,11 +15,15 @@ export default class App extends Component
 		},
 		currentMode: "mode",
 		lightState: true
-	}; 
+	};
+
+	socket = io();
 
 	componentDidMount()
 	{
 		returnState().then(state => {this.changeAppState(state)});
+		socket.on('xxx', console.log);
+
 	}
 
 	changeAppState = state => {
