@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const route = "http://192.168.100.32:3000/api"
+const serverUrl = "http://192.168.100.32:3000";
+const route = serverUrl + "/api";
+
 function handleError(error)
 {
 	console.log("Error:", error);

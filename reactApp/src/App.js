@@ -18,13 +18,12 @@ export default class App extends Component
 		lightState: true
 	};
 
-	socket = io();
+	socket = io('http://192.168.100.32:3000');
 
 	componentDidMount()
 	{
 		returnState().then(state => {this.changeAppState(state)});
-		this.socket.on('xxx', console.log);
-
+		this.socket.on('stateChanged', this.changeAppState);
 	}
 
 	changeAppState = state => {
