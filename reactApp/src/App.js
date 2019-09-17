@@ -3,7 +3,8 @@ import './App.css';
 import  ColorPicker  from './components/colorPicker.js';
 import  ModeSection  from './components/modeSection.js';
 import {returnState} from './components/server-comunication.js';
-import io from 'socket.io';
+import io from 'socket.io-client';
+
 
 export default class App extends Component 
 {
@@ -22,7 +23,7 @@ export default class App extends Component
 	componentDidMount()
 	{
 		returnState().then(state => {this.changeAppState(state)});
-		socket.on('xxx', console.log);
+		this.socket.on('xxx', console.log);
 
 	}
 
