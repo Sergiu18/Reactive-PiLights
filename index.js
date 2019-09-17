@@ -2,6 +2,8 @@ const lightController = require('./lights_control.js');
 const express = require('express');
 const cors = require('cors');
 const app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 app.use('/', express.static('reactApp/build'));
 
@@ -125,6 +127,10 @@ app.get('/api/returnState', cors(), (req, res) => {
 
 app.listen(3000, () => {
 	console.log("Listening on port 3000");
+})
+
+io.on('connection', (socket) =>{
+  console.log('a user is connected', socket)
 })
 
 

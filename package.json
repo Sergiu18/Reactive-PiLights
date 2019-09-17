@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/Sergiu18/Reactive-PiLights#readme",
   "dependencies": {
+    "express": "^4.17.1",
     "pigpio": "^1.2.3",
-    "express": "^4.17.1"
+    "socket.io": "^2.2.0"
   }
 }
