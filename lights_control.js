@@ -48,10 +48,12 @@ function stroboscopic_on(emitStateChange)
 		if(stroboscop)
 		{
 			set_color(rainbowColorAux.red, rainbowColorAux.green, rainbowColorAux.blue);
+			emitStateChange();
 		}
 		else 
 		{
 			set_color(0, 0, 0);
+			emitStateChange();
 		}
 		stroboscop = !stroboscop;
 	}, 250);
