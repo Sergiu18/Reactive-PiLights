@@ -45,7 +45,7 @@ function getRes(error, message)
 
 function emit()
 {
-	return io.emit('stateChanged', getState());
+	io.emit('stateChanged', getState());
 }
 	
 
@@ -122,7 +122,7 @@ app.get('/api/toggleRainbow', cors(), (req, res) => {
 	{
 		if(lightController.state.stroboscop==false)
 		{
-			lightController.rainbow_on();
+			lightController.rainbow_on(emit);
 			emit();
 			res.send(getRes(false, "Rainbow turned on"))
 		}
@@ -135,7 +135,6 @@ app.get('/api/returnState', cors(), (req, res) => {
 	console.log("Getting state called 2")
 	emit();
 	res.send(getRes(false, "State get"))
-	state: getState(); // this does not work
 });
 
 http.listen(3000, () => {

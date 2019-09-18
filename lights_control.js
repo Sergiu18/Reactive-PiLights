@@ -15,6 +15,7 @@ var state = {
 
 var stroboscopLoop;
 var rainbowLoop;
+var rainbowColorAux = null;
 
 function lights_off()
 {
@@ -62,7 +63,7 @@ function stroboscopic_off()
 	clearInterval(stroboscopLoop);
 }
 
-function rainbow_cycle()
+function rainbow_cycle(emitStateChange)
 {
 	var timeouts = [];
 	var frequency = 0.063;
@@ -74,9 +75,8 @@ function rainbow_cycle()
 				const r   = Math.round(Math.sin(frequency*i + 0) * 127 + 128);
 				const g = Math.round(Math.sin(frequency*i + 2) * 127 + 128);
 			 	const b  = Math.round(Math.sin(frequency*i + 4) * 127 + 128);
-			   	red.pwmWrite(r);
-				green.pwmWrite(g);
-				blue.pwmWrite(b);
+			   	set_color(r, g, b);
+			   	emitStateChange();
 			} else {
 				clearAllTimeouts(timeouts);
 			}
@@ -88,18 +88,20 @@ function clearAllTimeouts(timeouts) {
 	timeouts.forEach(timeout => clearTimeout(timeout));
 }
 
-function rainbow_on()
+function rainbow_on(emitStateChange)
 {
 	state.rainbow = true; 
-	rainbow_cycle();
-	rainbowLoop = setInterval(rainbow_cycle,5250);
+	rainbowColorAux = state.currentColor;
+	rainbow_cycle(emitStateChange);
+	rainbowLoop = setInterval(() => rainbow_cycle(emitStateChange),5250);
 }
 
 function rainbow_off()
 {
 	console.log("rainbow_off called");
 	state.rainbow = false;
-	set_color(state.currentColor.red, state.currentColor.green, state.currentColor.blue);
+	set_color(rainbowColorAux.red, rainbowColorAux.green, rainbowColorAux.blue);
+	rainbowColorAux = null;
 	clearInterval(rainbowLoop);
 }
 
