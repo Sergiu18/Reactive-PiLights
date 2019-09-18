@@ -43,11 +43,18 @@ function getRes(error, message)
 	}
 }
 
+function emit()
+{
+	return io.emit('stateChanged', getState());
+}
+	
+
+
 app.get('/api/modes_off', cors(), (req, res) => {
 	console.log("modes_off called")
 	lightController.stroboscopic_off();
 	lightController.rainbow_off();
-	io.emit('stateChanged', getState());
+	emit();
 	res.send(getRes(false, "Modes turned off"))
 });
 
@@ -67,7 +74,7 @@ app.get('/api/setColor', cors(), (req, res) => {
 		}
 		lightController.set_color(r, g, b);
 		const message =  `Colors: Red: ${r}, Green: ${g}, Blue: ${b}`;
-		io.emit('stateChanged', getState());
+		emit();
 		res.send(getRes(false, message));
 		return;
 	}
@@ -85,7 +92,7 @@ app.get('/api/toggleStroboscopic', cors(), (req, res) => {
 	if(lightController.state.stroboscop)
 	{
 		lightController.stroboscopic_off();
-		io.emit('stateChanged', getState());
+		emit();
 		res.send(getRes(false, "Stroboscopic turned off"))
 		lightController.set_color(red, green, blue);
 	}
@@ -93,7 +100,7 @@ app.get('/api/toggleStroboscopic', cors(), (req, res) => {
 		if((red || green || blue) && lightController.state.rainbow==false)
 		{
 			lightController.stroboscopic_on();
-			io.emit('stateChanged', getState());
+			emit();
 			res.send(getRes(false, "Stroboscopic turned on"))
 		}	
 		else
@@ -108,7 +115,7 @@ app.get('/api/toggleRainbow', cors(), (req, res) => {
 	if(lightController.state.rainbow)
 	{
 		lightController.rainbow_off();
-		io.emit('stateChanged', getState());
+		emit();
 		res.send(getRes(false, "Rainbow turned off"))
 	}
 	else
@@ -116,7 +123,7 @@ app.get('/api/toggleRainbow', cors(), (req, res) => {
 		if(lightController.state.stroboscop==false)
 		{
 			lightController.rainbow_on();
-			io.emit('stateChanged', getState());
+			emit();
 			res.send(getRes(false, "Rainbow turned on"))
 		}
 		else
@@ -126,7 +133,7 @@ app.get('/api/toggleRainbow', cors(), (req, res) => {
 
 app.get('/api/returnState', cors(), (req, res) => {
 	console.log("Getting state called 2")
-	io.emit('stateChanged', getState());
+	emit();
 	res.send(getRes(false, "State get"))
 	state: getState(); // this does not work
 });
