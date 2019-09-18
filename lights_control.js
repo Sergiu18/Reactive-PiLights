@@ -90,6 +90,7 @@ function clearAllTimeouts(timeouts) {
 
 function rainbow_on(emitStateChange)
 {
+	console.log("rainbow_on called");
 	state.rainbow = true; 
 	rainbowColorAux = state.currentColor;
 	rainbow_cycle(emitStateChange);
@@ -98,9 +99,11 @@ function rainbow_on(emitStateChange)
 
 function rainbow_off()
 {
+	const currentColor = rainbowColorAux ? rainbowColorAux : state.currentColor;
+
 	console.log("rainbow_off called");
 	state.rainbow = false;
-	set_color(rainbowColorAux.red, rainbowColorAux.green, rainbowColorAux.blue);
+	set_color(currentColor.red, currentColor.green, currentColor.blue);
 	rainbowColorAux = null;
 	clearInterval(rainbowLoop);
 }
