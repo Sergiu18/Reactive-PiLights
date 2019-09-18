@@ -67,7 +67,7 @@ function rainbow_cycle()
 	var frequency = 0.063;
 	for (let i = 0; i < 100; ++i)
 	{	
-		setTimeout(function(){
+		var timeout = setTimeout(function(){
 			if(state.rainbow==true)
 			{
 				const r   = Math.round(Math.sin(frequency*i + 0) * 127 + 128);
@@ -76,7 +76,9 @@ function rainbow_cycle()
 			   	red.pwmWrite(r);
 				green.pwmWrite(g);
 				blue.pwmWrite(b);
-			}	
+			} else {
+				clearTimeout(timeout);
+			}
 	   	}, 50*i);
 	}
 }
