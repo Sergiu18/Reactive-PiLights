@@ -84,7 +84,7 @@ function rainbow_cycle()
 	}
 }
 
-clearAllTimeouts(timeouts) {
+function clearAllTimeouts(timeouts) {
 	timeouts.forEach(timeout => clearTimeout(timeout));
 }
 
