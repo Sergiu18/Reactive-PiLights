@@ -1,8 +1,11 @@
 import axios from 'axios';
+import socket from 'socket';
 
 var fs = require("fs");
 
-var url = fs.readFileSync("./ip.txt");
+//var url = fs.readFileSync("./ip.txt");
+
+socket.gethostbyname(url)
 
 const serverUrl = `http://${url}:3000`;
 const route = serverUrl + "/api";
