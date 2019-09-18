@@ -1,10 +1,6 @@
 import axios from 'axios';
 
-var fs = require("fs");
-
-var url = fs.readFileSync("./ip.txt");
-
-const serverUrl = `http://${url}:3000`;
+const serverUrl = "http://192.168.100.32:3000";
 const route = serverUrl + "/api";
 
 function handleError(error)
