@@ -64,10 +64,11 @@ function stroboscopic_off()
 
 function rainbow_cycle()
 {
+	var timeouts = [];
 	var frequency = 0.063;
 	for (let i = 0; i < 100; ++i)
 	{	
-		var timeout = setTimeout(function(){
+		timeouts.push(setTimeout(function(){
 			if(state.rainbow==true)
 			{
 				const r   = Math.round(Math.sin(frequency*i + 0) * 127 + 128);
@@ -77,10 +78,14 @@ function rainbow_cycle()
 				green.pwmWrite(g);
 				blue.pwmWrite(b);
 			} else {
-				clearTimeout(timeout);
+				clearAllTimeouts(timeouts);
 			}
-	   	}, 50*i);
+	   	}, 50*i));
 	}
+}
+
+clearAllTimeouts(timeouts) {
+	timeouts.forEach(timeout => clearTimeout(timeout));
 }
 
 function rainbow_on()
