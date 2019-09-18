@@ -6,7 +6,8 @@
 	border:solid;*/
 	border-width: 1px;
 	height: 80px;
-	width:367px !important;
+	width: 100vw!important;
+    max-width: 367px;
 	display:flex;
 	top:399px;
 	position:absolute;
