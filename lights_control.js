@@ -38,7 +38,7 @@ function set_color(r = 0, g = 0, b = 0)
 	}
 }
 
-function stroboscopic_on()
+function stroboscopic_on(emitStateChange)
 {
 	state.stroboscop = true;
 	var stroboscop = true;
@@ -51,6 +51,7 @@ function stroboscopic_on()
 		else 
 		{
 			lights_off();
+			set_color(0, 0, 0);
 		}
 		stroboscop = !stroboscop;
 	}, 250);

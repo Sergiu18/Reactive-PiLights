@@ -99,7 +99,7 @@ app.get('/api/toggleStroboscopic', cors(), (req, res) => {
 	else
 		if((red || green || blue) && lightController.state.rainbow==false)
 		{
-			lightController.stroboscopic_on();
+			lightController.stroboscopic_on(emit);
 			emit();
 			res.send(getRes(false, "Stroboscopic turned on"))
 		}	
