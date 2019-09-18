@@ -52,7 +52,7 @@ function stroboscopic_on(emitStateChange)
 		else 
 		{
 			lights_off();
-			
+			set_color(0, 0, 0)
 		}
 		stroboscop = !stroboscop;
 	}, 250);
