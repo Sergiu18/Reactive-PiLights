@@ -41,17 +41,18 @@ function set_color(r = 0, g = 0, b = 0)
 function stroboscopic_on(emitStateChange)
 {
 	state.stroboscop = true;
+	rainbowColorAux = state.currentColor;
 	var stroboscop = true;
 	stroboscopLoop = setInterval(function(){
 		console.log(stroboscop ? "lights on" : "lights off")
 		if(stroboscop)
 		{
-			set_color(state.currentColor.red, state.currentColor.green, state.currentColor.blue);
+			set_color(rainbowColorAux.red, rainbowColorAux.green, rainbowColorAux.blue);
 		}
 		else 
 		{
 			lights_off();
-			set_color(0, 0, 0);
+			
 		}
 		stroboscop = !stroboscop;
 	}, 250);
@@ -59,8 +60,11 @@ function stroboscopic_on(emitStateChange)
 
 function stroboscopic_off()
 {
+	const currentColor = rainbowColorAux ? rainbowColorAux : state.currentColor;
 	console.log("stroboscopic_off called");
 	state.stroboscop = false;
+	set_color(currentColor.red, currentColor.green, currentColor.blue);
+	rainbowColorAux = null;
 	clearInterval(stroboscopLoop);
 }
 
