@@ -5,7 +5,7 @@ var fs = require("fs");
 
 //var url = fs.readFileSync("./ip.txt");
 
-socket.gethostbyname(url)
+// socket.gethostbyname(url)
 
 const serverUrl = `http://${url}:3000`;
 const route = serverUrl + "/api";
