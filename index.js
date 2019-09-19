@@ -6,11 +6,8 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 app.use(express.static(__dirname + '/reactApp/build'));
-app.use(function(request, response, next) {
-  response.header("Access-Control-Allow-Origin", "*");
-  response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+
+const PORT = process.env.PORT || 3000;
 
 function getState()
 {
@@ -136,14 +133,14 @@ app.get('/api/toggleRainbow', cors(), (req, res) => {
 	}
 });
 
-app.get('/api/returnState', (req, res) => {
-	console.log("Getting state called 2")
+app.get('/api/returnState', cors(), (req, res) => {
+	console.log("Getting state called")
 	emit();
 	res.send(getRes(false, "State get"))
 });
 
-http.listen(80, () => {
-	console.log("Listening on port 80");
+http.listen(PORT, () => {
+	console.log(`Listening on port ${PORT}`);
 })
 
 io.on('connection', (socket) =>{
