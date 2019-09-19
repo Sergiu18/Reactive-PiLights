@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-const serverUrl = "http://192.168.100.32:3000";
+const hostname = process.env.REACT_APP_HOSTNAME;
+const port = process.env.REACT_APP_PORT;
+
+const serverUrl = `http://${hostname}:${port}`;
 const route = serverUrl + "/api";
 
 function handleError(error)

@@ -18,7 +18,7 @@ export default class App extends Component
 		lightState: true
 	};
 
-	socket = io('http://192.168.100.32:3000');
+	socket = io(`${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_PORT}`);
 
 	componentDidMount()
 	{

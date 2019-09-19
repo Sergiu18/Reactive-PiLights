@@ -137,8 +137,8 @@ app.get('/api/returnState', cors(), (req, res) => {
 	res.send(getRes(false, "State get"))
 });
 
-http.listen(3000, () => {
-	console.log("Listening on port 3000");
+http.listen(80, () => {
+	console.log("Listening on port 80");
 })
 
 io.on('connection', (socket) =>{
