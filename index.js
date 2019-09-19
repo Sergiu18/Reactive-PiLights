@@ -131,7 +131,7 @@ app.get('/api/toggleRainbow', cors(), (req, res) => {
 	}
 });
 
-app.get('/api/returnState', cors(), (req, res) => {
+app.get('/api/returnState', (req, res) => {
 	console.log("Getting state called 2")
 	emit();
 	res.send(getRes(false, "State get"))
