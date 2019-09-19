@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-dev": "PORT=3000 && node index.js",
-    "start-prod": "PORT=80 && node index.js"
+    "start-dev": "PORT=3000 node index.js",
+    "start-prod": "PORT=80 node index.js"
   },
   "repository": {
     "type": "git",
