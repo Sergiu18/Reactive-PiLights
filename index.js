@@ -1,8 +1,13 @@
 const lightController = require('./lights_control.js');
 const express = require('express');
 const cors = require('cors');
-
 const app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+app.use(express.static(__dirname + '/reactApp/build'));
+
+const PORT = process.env.PORT || 3000;
 
 function getState()
 {
@@ -40,12 +45,18 @@ function getRes(error, message)
 	}
 }
 
-app.use('/', express.static('public'));
+function emit()
+{
+	io.emit('stateChanged', getState());
+}
+	
+
 
 app.get('/api/modes_off', cors(), (req, res) => {
 	console.log("modes_off called")
 	lightController.stroboscopic_off();
 	lightController.rainbow_off();
+	emit();
 	res.send(getRes(false, "Modes turned off"))
 });
 
@@ -65,6 +76,7 @@ app.get('/api/setColor', cors(), (req, res) => {
 		}
 		lightController.set_color(r, g, b);
 		const message =  `Colors: Red: ${r}, Green: ${g}, Blue: ${b}`;
+		emit();
 		res.send(getRes(false, message));
 		return;
 	}
@@ -74,20 +86,23 @@ app.get('/api/setColor', cors(), (req, res) => {
 });
 
 app.get('/api/toggleStroboscopic', cors(), (req, res) => {
-	lightController.rainbow_off();
-	lightController.set_color(255, 255, 255)
-	
 	const { red, green, blue } = lightController.state.currentColor;
+	lightController.rainbow_off();
+	if(red==0 && green==0 && blue==0)
+		lightController.set_color(255, 255, 255)
+
 	if(lightController.state.stroboscop)
 	{
 		lightController.stroboscopic_off();
+		emit();
 		res.send(getRes(false, "Stroboscopic turned off"))
 		lightController.set_color(red, green, blue);
 	}
 	else
 		if((red || green || blue) && lightController.state.rainbow==false)
 		{
-			lightController.stroboscopic_on();
+			lightController.stroboscopic_on(emit);
+			emit();
 			res.send(getRes(false, "Stroboscopic turned on"))
 		}	
 		else
@@ -102,13 +117,15 @@ app.get('/api/toggleRainbow', cors(), (req, res) => {
 	if(lightController.state.rainbow)
 	{
 		lightController.rainbow_off();
+		emit();
 		res.send(getRes(false, "Rainbow turned off"))
 	}
 	else
 	{
 		if(lightController.state.stroboscop==false)
 		{
-			lightController.rainbow_on();
+			lightController.rainbow_on(emit);
+			emit();
 			res.send(getRes(false, "Rainbow turned on"))
 		}
 		else
@@ -118,12 +135,16 @@ app.get('/api/toggleRainbow', cors(), (req, res) => {
 
 app.get('/api/returnState', cors(), (req, res) => {
 	console.log("Getting state called")
+	emit();
 	res.send(getRes(false, "State get"))
-	state: getState();
 });
 
-
-app.listen(3000, () => {
-	console.log("Listening on port 3000");
+http.listen(PORT, () => {
+	console.log(`Listening on port ${PORT}`);
 })
+
+io.on('connection', (socket) =>{
+  console.log('a user is connected')
+})
+
 

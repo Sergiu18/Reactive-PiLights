@@ -15,6 +15,7 @@ var state = {
 
 var stroboscopLoop;
 var rainbowLoop;
+var rainbowColorAux = null;
 
 function lights_off()
 {
@@ -37,62 +38,79 @@ function set_color(r = 0, g = 0, b = 0)
 	}
 }
 
-function stroboscopic_on()
+function stroboscopic_on(emitStateChange)
 {
 	state.stroboscop = true;
+	rainbowColorAux = state.currentColor;
 	var stroboscop = true;
 	stroboscopLoop = setInterval(function(){
 		console.log(stroboscop ? "lights on" : "lights off")
 		if(stroboscop)
 		{
-			set_color(state.currentColor.red, state.currentColor.green, state.currentColor.blue);
+			set_color(rainbowColorAux.red, rainbowColorAux.green, rainbowColorAux.blue);
+			emitStateChange();
 		}
 		else 
 		{
-			lights_off();
+			set_color(0, 0, 0);
+			emitStateChange();
 		}
 		stroboscop = !stroboscop;
-	}, 250);
+	}, 150);
 }
 
 function stroboscopic_off()
 {
+	const currentColor = rainbowColorAux ? rainbowColorAux : state.currentColor;
 	console.log("stroboscopic_off called");
 	state.stroboscop = false;
+	set_color(currentColor.red, currentColor.green, currentColor.blue);
+	rainbowColorAux = null;
 	clearInterval(stroboscopLoop);
 }
 
-function rainbow_cycle()
+function rainbow_cycle(emitStateChange)
 {
+	var timeouts = [];
 	var frequency = 0.063;
 	for (let i = 0; i < 100; ++i)
 	{	
-		setTimeout(function(){
+		timeouts.push(setTimeout(function(){
 			if(state.rainbow==true)
 			{
 				const r   = Math.round(Math.sin(frequency*i + 0) * 127 + 128);
 				const g = Math.round(Math.sin(frequency*i + 2) * 127 + 128);
 			 	const b  = Math.round(Math.sin(frequency*i + 4) * 127 + 128);
-			   	red.pwmWrite(r);
-				green.pwmWrite(g);
-				blue.pwmWrite(b);
-			}	
-	   	}, 50*i);
+			   	set_color(r, g, b);
+			   	emitStateChange();
+			} else {
+				clearAllTimeouts(timeouts);
+			}
+	   	}, 50*i));
 	}
 }
 
-function rainbow_on()
+function clearAllTimeouts(timeouts) {
+	timeouts.forEach(timeout => clearTimeout(timeout));
+}
+
+function rainbow_on(emitStateChange)
 {
-	state.rainbow = true;
-	rainbow_cycle();
-	rainbowLoop = setInterval(rainbow_cycle,5250);
+	console.log("rainbow_on called");
+	state.rainbow = true; 
+	rainbowColorAux = state.currentColor;
+	rainbow_cycle(emitStateChange);
+	rainbowLoop = setInterval(() => rainbow_cycle(emitStateChange),5250);
 }
 
 function rainbow_off()
 {
+	const currentColor = rainbowColorAux ? rainbowColorAux : state.currentColor;
+
 	console.log("rainbow_off called");
 	state.rainbow = false;
-	set_color(state.currentColor.red, state.currentColor.green, state.currentColor.blue);
+	set_color(currentColor.red, currentColor.green, currentColor.blue);
+	rainbowColorAux = null;
 	clearInterval(rainbowLoop);
 }
 

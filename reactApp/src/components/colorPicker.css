@@ -1,0 +1,12 @@
+.colorPicker
+{
+    height: calc((100vw / 1.818) + 100px);
+    max-height: 300px;
+	width: 100vw!important;
+    max-width: 367px;
+	bottom:-98px;
+	position:absolute;
+	margin:0 auto;
+	left:0;
+	right:0;
+}
