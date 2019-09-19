@@ -56,7 +56,7 @@ function stroboscopic_on(emitStateChange)
 			emitStateChange();
 		}
 		stroboscop = !stroboscop;
-	}, 200);
+	}, 250);
 }
 
 function stroboscopic_off()
