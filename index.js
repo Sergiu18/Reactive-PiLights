@@ -4,6 +4,7 @@ const cors = require('cors');
 const app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var os = require('os');
 
 app.use(express.static(__dirname + '/reactApp/build'));
 
@@ -141,10 +142,16 @@ app.get('/api/returnState', cors(), (req, res) => {
 
 http.listen(PORT, () => {
 	console.log(`Listening on port ${PORT}`);
+	console.log(`IP: ${getHostname()}`);
+
 })
 
 io.on('connection', (socket) =>{
   console.log('a user is connected')
 })
 
+
+function getHostname() {
+	return os.networkInterfaces().Ethernet.filter(addr => addr.family === "IPv4")[0].address;
+}
 
