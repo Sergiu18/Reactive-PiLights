@@ -154,6 +154,7 @@ io.on('connection', (socket) =>{
 function getHostname() {
 	const ethernet = os.networkInterfaces().Ethernet || os.networkInterfaces().eth0;
 	if (!ethernet) return "Ethernet not found";
+	console.log(ethernet);
 	return ethernet.filter(addr => addr.family === "IPv4")[0].address;
 }
 
