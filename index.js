@@ -142,7 +142,7 @@ app.get('/api/returnState', cors(), (req, res) => {
 
 http.listen(PORT, () => {
 	console.log(`Listening on port ${PORT}`);
-	console.log(`IP: ${getHostname()}`);
+	//console.log(`IP: ${getHostname()}`);
 
 })
 
