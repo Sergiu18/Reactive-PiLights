@@ -48,7 +48,7 @@ body {
 	background-image: url("images/lights-on.jpg");	
 }
 
-.button.mic input[type=checkbox]:checked + div {
+.button.mic input[type=radio]:checked + div {
 	background-image: url("images/mic-on.jpg");	
 }
 
