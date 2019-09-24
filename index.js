@@ -159,7 +159,7 @@ app.get('/api/toggleBreathing', cors(), (req, res) => {
 		{
 			lightController.stroboscopic_on(emit);
 			emit();
-			res.send(getRes(false, "Stroboscopic turned on"))
+			res.send(getRes(false, "Breathing turned on"))
 		}	
 		else
 		{

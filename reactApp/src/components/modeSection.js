@@ -6,6 +6,7 @@ import {off} from './server-comunication.js'
 import {stroboscopic} from './server-comunication.js'
 import {rainbow} from './server-comunication.js'
 import {setColor} from './server-comunication.js'
+import {breath} from './server-comunication.js'
 
 export default function ModeSection(props) 
 { 
@@ -40,6 +41,7 @@ export default function ModeSection(props)
 
 	function breathChange(event) {
 		props.onModeChange("breath")
+		breath().then(state => {props.onStateChange(state)});
 	}
 
   	return <div className="modesSection">

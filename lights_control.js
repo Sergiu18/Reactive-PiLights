@@ -117,14 +117,14 @@ function breathing_cycle(emitStateChange)
 	var timeouts = [];
 	let max = Math.max(state.currentColor.red, state.currentColor.green, state.currentColor.blue);
 	let factor = 255 / max;
-	for (let i = 0; i < 100; ++i)
+	for (let i = 0; i <= 100; ++i)
 	{	
 		timeouts.push(setTimeout(function(){
 			if(state.breathing==true)
 			{
-				const r = state.currentColor.red - (state.currentColor.red*100)/255;
-				const g = state.currentColor.green - (state.currentColor.green*100)/255;
-			 	const b  = state.currentColor.blue - (state.currentColor.blue*100)/255;
+				const r = Math.round(state.currentColor.red - (state.currentColor.red*i)/255);
+				const g = Math.round(state.currentColor.green - (state.currentColor.green*i)/255);
+			 	const b  = Math.round(state.currentColor.blue - (state.currentColor.blue*i)/255);
 			   	set_color(r, g, b);
 			   	emitStateChange();
 			} else {
