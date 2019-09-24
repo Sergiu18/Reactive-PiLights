@@ -56,6 +56,16 @@ export function rainbow()
 	})	
 }
 
+export function breath()
+{
+	return axios.get(route + `/toggleBreathing`)
+	.then(res => {
+		return res.data.data.state;
+	}).catch(err => {
+		handleError(err)
+	})	
+}
+
 export function returnState()
 {
 	return axios.get(route + `/returnState`)

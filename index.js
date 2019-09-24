@@ -17,9 +17,11 @@ function getState()
 	let lightState = true;
 	if(red == 0 && green == 0 && blue == 0)
 		lightState = false;
-	if(lightController.state.stroboscop && lightController.state.rainbow == false)
+	if(lightController.state.stroboscop && lightController.state.rainbow == false && lightController.state.breathing==false)
 		currentMode = "strobo";
-	if(lightController.state.stroboscop == false && lightController.state.rainbow)
+	if(lightController.state.stroboscop == false && lightController.state.rainbow == false && lightController.state.breathing)
+		currentMode = "breath";
+	if(lightController.state.stroboscop == false && lightController.state.breathing==false && lightController.state.rainbow)
 	{
 		currentMode = "rainbow";
 		lightState = true;
@@ -57,6 +59,7 @@ app.get('/api/modes_off', cors(), (req, res) => {
 	console.log("modes_off called")
 	lightController.stroboscopic_off();
 	lightController.rainbow_off();
+	lightController.breathing_off();
 	emit();
 	res.send(getRes(false, "Modes turned off"))
 });
@@ -65,6 +68,7 @@ app.get('/api/modes_off', cors(), (req, res) => {
 app.get('/api/setColor', cors(), (req, res) => {
 	lightController.stroboscopic_off();
 	lightController.rainbow_off();
+	lightController.breathing_off();
 	const {r, g, b} = req.query;
 
 	if(r || g || b)
@@ -89,6 +93,7 @@ app.get('/api/setColor', cors(), (req, res) => {
 app.get('/api/toggleStroboscopic', cors(), (req, res) => {
 	const { red, green, blue } = lightController.state.currentColor;
 	lightController.rainbow_off();
+	lightController.breathing_off();
 	if(red==0 && green==0 && blue==0)
 		lightController.set_color(255, 255, 255)
 
@@ -100,7 +105,7 @@ app.get('/api/toggleStroboscopic', cors(), (req, res) => {
 		lightController.set_color(red, green, blue);
 	}
 	else
-		if((red || green || blue) && lightController.state.rainbow==false)
+		if((red || green || blue) && lightController.state.rainbow==false && lightController.state.breathing==false)
 		{
 			lightController.stroboscopic_on(emit);
 			emit();
@@ -115,6 +120,7 @@ app.get('/api/toggleStroboscopic', cors(), (req, res) => {
 
 app.get('/api/toggleRainbow', cors(), (req, res) => {
 	lightController.stroboscopic_off();
+	lightController.breathing_off();
 	if(lightController.state.rainbow)
 	{
 		lightController.rainbow_off();
@@ -123,7 +129,7 @@ app.get('/api/toggleRainbow', cors(), (req, res) => {
 	}
 	else
 	{
-		if(lightController.state.stroboscop==false)
+		if(lightController.state.stroboscop==false && lightController.state.breathing==false)
 		{
 			lightController.rainbow_on(emit);
 			emit();
@@ -132,6 +138,34 @@ app.get('/api/toggleRainbow', cors(), (req, res) => {
 		else
 			res.send(getRes(true, "Lights turned off??"))
 	}
+});
+
+app.get('/api/toggleBreathing', cors(), (req, res) => {
+	const { red, green, blue } = lightController.state.currentColor;
+	lightController.rainbow_off();
+	lightController.stroboscopic_off();
+	if(red==0 && green==0 && blue==0)
+		lightController.set_color(255, 255, 255)
+
+	if(lightController.state.breathing)
+	{
+		lightController.breathing_off();
+		emit();
+		res.send(getRes(false, "Breathing turned off"))
+		lightController.set_color(red, green, blue);
+	}
+	else
+		if((red || green || blue) && lightController.state.rainbow==false && lightController.state.stroboscopic==false)
+		{
+			lightController.stroboscopic_on(emit);
+			emit();
+			res.send(getRes(false, "Stroboscopic turned on"))
+		}	
+		else
+		{
+			res.status(500);
+			res.send(getRes(true, "Please select colors before performing this action!"))
+		}
 });
 
 app.get('/api/returnState', cors(), (req, res) => {

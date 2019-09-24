@@ -34,37 +34,61 @@ export default function ModeSection(props)
 			setColor(0,0,0).then(state => {props.onStateChange(state)});
 	}
 
+	function micChanged(event) {
+		props.onModeChange("mic")
+	}
+
+	function breathChange(event) {
+		props.onModeChange("breath")
+	}
 
   	return <div className="modesSection">
-  		<Button 
-  			id="lights" 
-  			name="modesSection" 
-  			type="checkbox"
-  			checked={props.lightState}
-  			onChange={lightsChanged}
-  		/>
-  		<div className="divider"></div>
-	    <Button 
-		    id="mode" 
-		    name="modesSection" 
-		    type="radio" 
-		    checked={props.currentMode === "mode"}
-		    onChange={modeChanged}
-	    />
-		<Button 
-			id="strobo" 
-			name="modesSection" 
-			type="radio" 		    
-			checked={props.currentMode === "strobo"}
-			onChange={stroboChange}
-		/>
-		<Button 
-			id="rainbow" 
-			name="modesSection"
-			type="radio" 		    
-			checked={props.currentMode === "rainbow"}
-			onChange={rainbowChange}
-		/>
+  		<div className="div">
+	  		<Button 
+	  			id="lights" 
+	  			name="modesSection" 
+	  			type="checkbox"
+	  			checked={props.lightState}
+	  			onChange={lightsChanged}
+	  		/>	
+		    <Button 
+			    id="mode" 
+			    name="modesSection" 
+			    type="radio" 
+			    checked={props.currentMode === "mode"}
+			    onChange={modeChanged}
+		    />
+		    <Button 
+				id="mic" 
+				name="modesSection"
+				type="radio" 		    
+				checked={props.currentMode === "mic"}
+				onChange={micChanged}
+			/>
+		</div>	
+		<div className="div">
+			<Button 
+				id="strobo" 
+				name="modesSection" 
+				type="radio" 		    
+				checked={props.currentMode === "strobo"}
+				onChange={stroboChange}
+			/>
+			<Button 
+				id="rainbow" 
+				name="modesSection"
+				type="radio" 		    
+				checked={props.currentMode === "rainbow"}
+				onChange={rainbowChange}
+			/>
+			<Button 
+				id="breath" 
+				name="modesSection"
+				type="radio" 		    
+				checked={props.currentMode === "breath"}
+				onChange={breathChange}
+			/>
+		</div>
     </div>
 }
 

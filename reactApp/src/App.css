@@ -7,9 +7,17 @@ body {
 	position: relative;
 }
 
-.button.mode input[type=radio] + div
+.button.mode input[type=radio] + div {
+	background-image: url("images/off.png");	
+}
+
+.button.mic input[type=radio] + div
 {
-	background-image: url("images/off.png");
+	background-image: url("images/mic-off.jpg");
+}
+
+.button.lights input[type=checkbox] + div {
+	background-image: url("images/lights-off.jpg");
 }
 
 .button.strobo input[type=radio] + div 
@@ -22,9 +30,10 @@ body {
 	background-image: url("images/rainbow-off.png");
 }
 
-.button.lights input[type=checkbox] + div {
-	background-image: url("images/lights-off.jpg");
+.button.breath input[type=radio] + div {
+	background-image: url("images/breath-off.jpg");
 }
+
 .divider
 {
 	background-image: url("images/divider.png");
@@ -39,6 +48,10 @@ body {
 	background-image: url("images/lights-on.jpg");	
 }
 
+.button.mic input[type=checkbox]:checked + div {
+	background-image: url("images/mic-on.jpg");	
+}
+
 .button.mode input[type=radio]:checked + div {
 	background-image: url("images/on.png");	
 }
@@ -49,4 +62,8 @@ body {
 
 .button.rainbow input[type=radio]:checked + div {
 	background-image: url("images/rainbow-on.png");	
+}
+
+.button.breath input[type=radio]:checked + div {
+	background-image: url("images/breath-on.jpg");	
 }

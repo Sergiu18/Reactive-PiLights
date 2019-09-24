@@ -10,11 +10,13 @@ var state = {
 		blue: 0
 	},
 	stroboscop: false,
-	rainbow: false
+	rainbow: false,
+	breathing: false
 }
 
 var stroboscopLoop;
 var rainbowLoop;
+var breathingLoop;
 var rainbowColorAux = null;
 
 function lights_off()
@@ -90,10 +92,6 @@ function rainbow_cycle(emitStateChange)
 	}
 }
 
-function clearAllTimeouts(timeouts) {
-	timeouts.forEach(timeout => clearTimeout(timeout));
-}
-
 function rainbow_on(emitStateChange)
 {
 	console.log("rainbow_on called");
@@ -114,7 +112,49 @@ function rainbow_off()
 	clearInterval(rainbowLoop);
 }
 
+function breathing_cycle(emitStateChange)
+{
+	var timeouts = [];
+	let max = Math.max(state.currentColor.red, state.currentColor.green, state.currentColor.blue);
+	let factor = 255 / max;
+	for (let i = 0; i < 100; ++i)
+	{	
+		timeouts.push(setTimeout(function(){
+			if(state.breathing==true)
+			{
+				const r = state.currentColor.red - (state.currentColor.red*100)/255;
+				const g = state.currentColor.green - (state.currentColor.green*100)/255;
+			 	const b  = state.currentColor.blue - (state.currentColor.blue*100)/255;
+			   	set_color(r, g, b);
+			   	emitStateChange();
+			} else {
+				clearAllTimeouts(timeouts);
+			}
 
+	   	}, 50*i));
+	}
+}
+function breathing_on(emitStateChange)
+{
+	console.log("rainbow_on called");
+	state.breathing = true; 
+	rainbowColorAux = state.currentColor;
+	breathing_cycle(emitStateChange);
+	breathingLoop = setInterval(() => breathing_cycle(emitStateChange),5250);
+}
+function breathing_off()
+{
+	const currentColor = rainbowColorAux ? rainbowColorAux : state.currentColor;
+	console.log("breathing_off called");
+	state.breathing = false;
+	set_color(currentColor.red, currentColor.green, currentColor.blue);
+	rainbowColorAux = null;
+	clearInterval(breathingLoop);
+}
+
+function clearAllTimeouts(timeouts) {
+	timeouts.forEach(timeout => clearTimeout(timeout));
+}
 
 
 module.exports = { 
@@ -124,5 +164,7 @@ module.exports = {
 	stroboscopic_off,
 	rainbow_on,
 	rainbow_off,
+	breathing_on,
+	breathing_off,
 	state
 }
