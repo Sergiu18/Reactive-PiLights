@@ -118,14 +118,30 @@ function breathing_on(emitStateChange)
 	state.breathing = true; 
 	rainbowColorAux = state.currentColor;
 	var timeouts = [];
-	for (let i = 0; i <= 40; ++i)
+	for (let i = 0; i <= 45; ++i)
 	{	
-		timeouts.push(setTimeout(function(){
+		var down = timeouts.push(setTimeout(function(){
 			if(state.breathing==true)
 			{
 				red = Math.round(red - (red*i)/255);
 				green = Math.round(green - (green*i)/255);
 			 	blue  = Math.round(blue - (blue*i)/255);
+			   	set_color(red, green, blue);
+			   	emitStateChange();
+			} else {
+				clearAllTimeouts(timeouts);
+			}
+	   	}, 50*i));
+	}
+	clearTimeout(down);
+	for (let i = 45; i >= 0; --i)
+	{	
+		timeouts.push(setTimeout(function(){
+			if(state.breathing==true)
+			{
+				red = Math.round(red + (red*i)/255);
+				green = Math.round(green + (green*i)/255);
+			 	blue  = Math.round(blue + (blue*i)/255);
 			   	set_color(red, green, blue);
 			   	emitStateChange();
 			} else {
@@ -140,7 +156,6 @@ function breathing_off()
 	state.breathing = false;
 	set_color(currentColor.red, currentColor.green, currentColor.blue);
 	rainbowColorAux = null;
-	clearInterval(breathingLoop);
 }
 
 function clearAllTimeouts(timeouts) {
