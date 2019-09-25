@@ -156,7 +156,7 @@ app.get('/api/toggleBreathing', cors(), (req, res) => {
 		console.log("breathing-off")
 		lightController.set_color(red, green, blue);
 	}
-	else if(lightController.state.rainbow==false && lightController.state.stroboscopic==false)	
+	else if(lightController.state.rainbow==false && lightController.state.stroboscop==false)	
 	{
 		lightController.breathing_on(emit);
 		emit();
