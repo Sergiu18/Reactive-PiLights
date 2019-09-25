@@ -119,7 +119,7 @@ function breathing_on(emitStateChange)
 	rainbowColorAux = state.currentColor;
 	var timeouts = [];
 	breathingLoop = setInterval(() => {
-		for (let i = 0; i <= 55; ++i)
+		for (let i = 0; i <= 60; ++i)
 		{	
 			timeouts.push(setTimeout(function(){
 				if(state.breathing==true)
