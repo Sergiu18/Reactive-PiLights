@@ -134,7 +134,7 @@ function breathing_on(emitStateChange)
 			}
 	   	}, 50*i));
 	}
-	for (let j = 45; j >= 0.8; j--)
+	for (let j = 45; j >= 0.9; j--)
 	{	
 		timeouts.push(setTimeout(function(){
 			if(state.breathing==true)
