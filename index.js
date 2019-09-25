@@ -152,6 +152,7 @@ app.get('/api/toggleBreathing', cors(), (req, res) => {
 		lightController.breathing_off();
 		emit();
 		res.send(getRes(false, "Breathing turned off"))
+		console.log("off")
 		lightController.set_color(red, green, blue);
 	}
 	else
@@ -163,7 +164,7 @@ app.get('/api/toggleBreathing', cors(), (req, res) => {
 		}	
 		else
 		{
-			res.status(500);
+			console.log("no colors");
 			res.send(getRes(true, "Please select colors before performing this action!"))
 		}
 });

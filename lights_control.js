@@ -112,8 +112,11 @@ function rainbow_off()
 	clearInterval(rainbowLoop);
 }
 
-function breathing_cycle(emitStateChange)
+function breathing_on(emitStateChange)
 {
+	console.log("rainbow_on called");
+	state.breathing = true; 
+	rainbowColorAux = state.currentColor;
 	var timeouts = [];
 	let max = Math.max(state.currentColor.red, state.currentColor.green, state.currentColor.blue);
 	let factor = 255 / max;
@@ -127,19 +130,13 @@ function breathing_cycle(emitStateChange)
 			 	const b  = Math.round(state.currentColor.blue - (state.currentColor.blue*i)/255);
 			   	set_color(r, g, b);
 			   	emitStateChange();
+			   	console.log(`Colors: ${r}, ${g}, ${b}`);
 			} else {
 				clearAllTimeouts(timeouts);
 			}
 
 	   	}, 50*i));
 	}
-}
-function breathing_on(emitStateChange)
-{
-	console.log("rainbow_on called");
-	state.breathing = true; 
-	rainbowColorAux = state.currentColor;
-	breathing_cycle(emitStateChange);
 	breathingLoop = setInterval(() => breathing_cycle(emitStateChange),5250);
 }
 function breathing_off()
