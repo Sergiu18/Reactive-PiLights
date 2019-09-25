@@ -134,21 +134,21 @@ function breathing_on(emitStateChange)
 			}
 	   	}, 50*i));
 	}
-	for (let i = 45; i >= 0; --i)
+	for (let j = 45; j >= 0; j--)
 	{	
 		timeouts.push(setTimeout(function(){
 			if(state.breathing==true)
 			{
-				red = Math.round(red + (red*i)/255);
-				green = Math.round(green + (green*i)/255);
-			 	blue  = Math.round(blue + (blue*i)/255);
+				red = Math.round(red + (red*j)/255);
+				green = Math.round(green + (green*j)/255);
+			 	blue  = Math.round(blue + (blue*j)/255);
 			   	set_color(red, green, blue);
 			   	console.log(`Colors:  ${red} ${green} ${blue}`)
 			   	emitStateChange();
 			} else {
 				clearAllTimeouts(timeouts);
 			}
-	   	}, 50*i+2250));
+	   	}, 50*j+2250));
 	}
 }
 function breathing_off()
