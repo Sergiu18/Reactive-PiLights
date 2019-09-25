@@ -135,22 +135,6 @@ function breathing_on(emitStateChange)
 
 		   	}, 50*i));
 		}
-		for (let i = 100; i >= 0; i--)
-		{	
-			timeouts.push(setTimeout(function(){
-				if(state.breathing==true)
-				{
-					red = Math.round(red + (red*i)/255);
-					green = Math.round(green + (green*i)/255);
-				 	blue  = Math.round(blue + (blue*i)/255);
-				   	set_color(red, green, blue);
-				   	emitStateChange();
-				} else {
-					clearAllTimeouts(timeouts);
-				}
-
-		   	}, 50*i));
-		}
 	},2000);
 }
 function breathing_off()
