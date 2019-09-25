@@ -120,7 +120,7 @@ function breathing_on(emitStateChange)
 	var timeouts = [];
 	for (let i = 0; i <= 45; ++i)
 	{	
-		var down = timeouts.push(setTimeout(function(){
+		timeouts.push(setTimeout(function(){
 			if(state.breathing==true)
 			{
 				red = Math.round(red - (red*i)/255);
@@ -133,7 +133,6 @@ function breathing_on(emitStateChange)
 			}
 	   	}, 50*i));
 	}
-	clearTimeout(down);
 	for (let i = 45; i >= 0; --i)
 	{	
 		timeouts.push(setTimeout(function(){
