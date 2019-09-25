@@ -19,7 +19,6 @@ export default function ModeSection(props)
 	function stroboChange(event) {
 		props.onModeChange("strobo")
 		stroboscopic().then(state => {props.onStateChange(state)});
-		console.log(event)
 	}
 
 	function rainbowChange(event) {
@@ -42,6 +41,7 @@ export default function ModeSection(props)
 	function breathChange(event) {
 		props.onModeChange("breath")
 		breath().then(state => {props.onStateChange(state)});
+		console.log(event)
 	}
 
   	return <div className="modesSection">

@@ -152,21 +152,15 @@ app.get('/api/toggleBreathing', cors(), (req, res) => {
 		lightController.breathing_off();
 		emit();
 		res.send(getRes(false, "Breathing turned off"))
-		console.log("off")
+		console.log("breathing-off")
 		lightController.set_color(red, green, blue);
 	}
-	else
-		if((red || green || blue) && lightController.state.rainbow==false && lightController.state.stroboscopic==false)
-		{
-			lightController.stroboscopic_on(emit);
-			emit();
-			res.send(getRes(false, "Breathing turned on"))
-		}	
-		else
-		{
-			console.log("no colors");
-			res.send(getRes(true, "Please select colors before performing this action!"))
-		}
+	else if(lightController.state.rainbow==false && lightController.state.stroboscopic==false)	
+	{
+		lightController.breathing_on(emit);
+		emit();
+		res.send(getRes(false, "Breathing turned on"))
+	}	
 });
 
 app.get('/api/returnState', cors(), (req, res) => {

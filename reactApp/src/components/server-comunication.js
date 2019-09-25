@@ -61,6 +61,7 @@ export function breath()
 	return axios.get(route + `/toggleBreathing`)
 	.then(res => {
 		return res.data.data.state;
+		console.log(res.data.data.state)
 	}).catch(err => {
 		handleError(err)
 	})	

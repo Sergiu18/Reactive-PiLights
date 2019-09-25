@@ -114,20 +114,18 @@ function rainbow_off()
 
 function breathing_on(emitStateChange)
 {
-	console.log("rainbow_on called");
+	const { r, g, b } = state.currentColor;
 	state.breathing = true; 
 	rainbowColorAux = state.currentColor;
 	var timeouts = [];
-	let max = Math.max(state.currentColor.red, state.currentColor.green, state.currentColor.blue);
-	let factor = 255 / max;
 	for (let i = 0; i <= 100; ++i)
 	{	
 		timeouts.push(setTimeout(function(){
 			if(state.breathing==true)
 			{
-				const r = Math.round(state.currentColor.red - (state.currentColor.red*i)/255);
-				const g = Math.round(state.currentColor.green - (state.currentColor.green*i)/255);
-			 	const b  = Math.round(state.currentColor.blue - (state.currentColor.blue*i)/255);
+				const r = Math.round(r - (r*100)/255);
+				const g = Math.round(g - (g*100)/255);
+			 	const b  = Math.round(b - (b*100)/255);
 			   	set_color(r, g, b);
 			   	emitStateChange();
 			   	console.log(`Colors: ${r}, ${g}, ${b}`);
@@ -142,7 +140,6 @@ function breathing_on(emitStateChange)
 function breathing_off()
 {
 	const currentColor = rainbowColorAux ? rainbowColorAux : state.currentColor;
-	console.log("breathing_off called");
 	state.breathing = false;
 	set_color(currentColor.red, currentColor.green, currentColor.blue);
 	rainbowColorAux = null;
