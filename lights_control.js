@@ -118,7 +118,7 @@ function breathing_on(emitStateChange)
 	state.breathing = true; 
 	rainbowColorAux = state.currentColor;
 	var timeouts = [];
-	for (let i = 0; i <= 45; ++i)
+	for (let i = 0; i <= 40; ++i)
 	{	
 		timeouts.push(setTimeout(function(){
 			if(state.breathing==true)
@@ -134,7 +134,7 @@ function breathing_on(emitStateChange)
 			}
 	   	}, 50*i));
 	}
-	for (let j = 45; j >= 0; j--)
+	for (let j = 45; j >= 0.5; j--)
 	{	
 		timeouts.push(setTimeout(function(){
 			if(state.breathing==true)
