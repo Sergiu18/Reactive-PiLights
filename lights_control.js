@@ -114,7 +114,7 @@ function rainbow_off()
 
 function breathing_on(emitStateChange)
 {
-	const { red, green, blue } = state.currentColor;
+	var { red, green, blue } = state.currentColor;
 	state.breathing = true; 
 	rainbowColorAux = state.currentColor;
 	var timeouts = [];
