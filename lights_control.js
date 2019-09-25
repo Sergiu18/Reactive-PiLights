@@ -123,9 +123,9 @@ function breathing_on(emitStateChange)
 		timeouts.push(setTimeout(function(){
 			if(state.breathing==true)
 			{
-				const red = Math.round(red - (red*100)/255);
-				const green = Math.round(green - (green*100)/255);
-			 	const blue  = Math.round(blue - (blue*100)/255);
+				red = Math.round(red - (red*100)/255);
+				green = Math.round(green - (green*100)/255);
+			 	blue  = Math.round(blue - (blue*100)/255);
 			   	set_color(r, green, blue);
 			   	emitStateChange();
 			   	console.log(`Colors: ${red}, ${green}, ${blue}`);
