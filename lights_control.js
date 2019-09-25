@@ -132,10 +132,9 @@ function breathing_on(emitStateChange)
 				} else {
 					clearAllTimeouts(timeouts);
 				}
-
 		   	}, 50*i));
 		}
-	},2000);
+	},100);
 }
 function breathing_off()
 {
