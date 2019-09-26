@@ -152,36 +152,36 @@ function breathing_on(emitStateChange)
 		   	}, 50*i));
 		}
 
-	// breathingLoop = setInterval(() => {
-	// 	for (let i = 0; i < timeoutNumber; ++i)
-	// 	{	
-	// 		timeouts.push(setTimeout(function(){
-	// 			if(state.breathing==true)
-	// 			{
-	// 				if(i < timeoutNumber / 2) {
-	// 					red = Math.round(red - (red*i)/255);
-	// 					green = Math.round(green - (green*i)/255);
-	// 				 	blue  = Math.round(blue - (blue*i)/255);
+	breathingLoop = setInterval(() => {
+		for (let i = 0; i < timeoutNumber; ++i)
+		{	
+			timeouts.push(setTimeout(function(){
+				if(state.breathing==true)
+				{
+					if(i < timeoutNumber / 2) {
+						red = Math.round(red - (red*i)/255);
+						green = Math.round(green - (green*i)/255);
+					 	blue  = Math.round(blue - (blue*i)/255);
 
-	// 				   	colors.push({
-	// 				   		red,
-	// 				   		green,
-	// 				   		blue
-	// 				   	});
-	// 				} else {
-	// 					({ red, green, blue } = colors.pop());
-	// 				}
+					   	colors.push({
+					   		red,
+					   		green,
+					   		blue
+					   	});
+					} else {
+						({ red, green, blue } = colors.pop());
+					}
 
-	// 			   	set_color(red, green, blue);
+				   	set_color(red, green, blue);
 
-	// 			   	console.log(`Colors:  ${red} ${green} ${blue}`)
-	// 			   	emitStateChange();
-	// 			} else {
-	// 				clearAllTimeouts(timeouts);
-	// 			}
-	// 	   	}, 50*i));
-	// 	}
-	// },4250);
+				   	console.log(`${i}) Colors:  ${red} ${green} ${blue}`)
+				   	emitStateChange();
+				} else {
+					clearAllTimeouts(timeouts);
+				}
+		   	}, 50*i));
+		}
+	},4250);
 
 }
 
