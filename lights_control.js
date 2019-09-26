@@ -98,7 +98,7 @@ function rainbow_on(emitStateChange)
 	state.rainbow = true; 
 	colorAux = state.currentColor;
 	rainbow_cycle(emitStateChange);
-	rainbowLoop = setInterval(() => rainbow_cycle(emitStateChange),5050);
+	rainbowLoop = setInterval(() => rainbow_cycle(emitStateChange),5000);
 }
 
 function rainbow_off()
@@ -153,7 +153,7 @@ function breathing_on(emitStateChange)
 	state.breathing = true; 
 	colorAux = state.currentColor;
 	breathing_cycle(emitStateChange);
-	breathingLoop = setInterval(() => breathing_cycle(emitStateChange),4550);
+	breathingLoop = setInterval(() => breathing_cycle(emitStateChange),4500);
 
 }
 
