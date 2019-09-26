@@ -163,7 +163,7 @@ function breathing_off()
 	state.breathing = false;
 	set_color(currentColor.red, currentColor.green, currentColor.blue);
 	colorAux = null;
-	//clearInterval(breathingLoop);
+	clearInterval(breathingLoop);
 }
 
 function clearAllTimeouts(timeouts) 
