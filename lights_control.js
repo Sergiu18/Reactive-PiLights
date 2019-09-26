@@ -17,7 +17,7 @@ var state = {
 var stroboscopLoop;
 var rainbowLoop;
 var breathingLoop;
-var rainbowColorAux = null;
+var colorAux = null;
 
 function lights_off()
 {
@@ -43,13 +43,13 @@ function set_color(r = 0, g = 0, b = 0)
 function stroboscopic_on(emitStateChange)
 {
 	state.stroboscop = true;
-	rainbowColorAux = state.currentColor;
+	colorAux = state.currentColor;
 	var stroboscop = true;
 	stroboscopLoop = setInterval(function(){
 		console.log(stroboscop ? "lights on" : "lights off")
 		if(stroboscop)
 		{
-			set_color(rainbowColorAux.red, rainbowColorAux.green, rainbowColorAux.blue);
+			set_color(colorAux.red, colorAux.green, colorAux.blue);
 			emitStateChange();
 		}
 		else 
@@ -63,11 +63,11 @@ function stroboscopic_on(emitStateChange)
 
 function stroboscopic_off()
 {
-	const currentColor = rainbowColorAux ? rainbowColorAux : state.currentColor;
+	const currentColor = colorAux ? colorAux : state.currentColor;
 	console.log("stroboscopic_off called");
 	state.stroboscop = false;
 	set_color(currentColor.red, currentColor.green, currentColor.blue);
-	rainbowColorAux = null;
+	colorAux = null;
 	clearInterval(stroboscopLoop);
 }
 
@@ -96,19 +96,19 @@ function rainbow_on(emitStateChange)
 {
 	console.log("rainbow_on called");
 	state.rainbow = true; 
-	rainbowColorAux = state.currentColor;
+	colorAux = state.currentColor;
 	rainbow_cycle(emitStateChange);
 	rainbowLoop = setInterval(() => rainbow_cycle(emitStateChange),5250);
 }
 
 function rainbow_off()
 {
-	const currentColor = rainbowColorAux ? rainbowColorAux : state.currentColor;
+	const currentColor = colorAux ? colorAux : state.currentColor;
 
 	console.log("rainbow_off called");
 	state.rainbow = false;
 	set_color(currentColor.red, currentColor.green, currentColor.blue);
-	rainbowColorAux = null;
+	colorAux = null;
 	clearInterval(rainbowLoop);
 }
 
@@ -121,45 +121,47 @@ function breathing_on(emitStateChange)
 	var { red, green, blue } = state.currentColor;
 
 	state.breathing = true; 
-	rainbowColorAux = state.currentColor;
+	colorAux = state.currentColor;
 
-	
-	for (let i = 0; i < timeoutNumber; ++i)
-	{	
-		timeouts.push(setTimeout(function(){
-			if(state.breathing==true)
-			{
-				if(i < timeoutNumber / 2) {
-					red = Math.round(red - (red*i)/255);
-					green = Math.round(green - (green*i)/255);
-				 	blue  = Math.round(blue - (blue*i)/255);
+	breathingLoop = setInterval(() => {
+		for (let i = 0; i < timeoutNumber; ++i)
+		{	
+			timeouts.push(setTimeout(function(){
+				if(state.breathing==true)
+				{
+					if(i < timeoutNumber / 2) {
+						red = Math.round(red - (red*i)/255);
+						green = Math.round(green - (green*i)/255);
+					 	blue  = Math.round(blue - (blue*i)/255);
 
-				   	colors.push({
-				   		red,
-				   		green,
-				   		blue
-				   	});
+					   	colors.push({
+					   		red,
+					   		green,
+					   		blue
+					   	});
+					} else {
+						({ red, green, blue } = colors.pop());
+					}
+
+				   	set_color(red, green, blue);
+
+				   	console.log(`Colors:  ${red} ${green} ${blue}`)
+				   	emitStateChange();
 				} else {
-					({ red, green, blue } = colors.pop());
+					clearAllTimeouts(timeouts);
 				}
-
-			   	set_color(red, green, blue);
-
-			   	console.log(`Colors:  ${red} ${green} ${blue}`)
-			   	emitStateChange();
-			} else {
-				clearAllTimeouts(timeouts);
-			}
-	   	}, 50*i));
-	}
+		   	}, 50*i));
+		}
+	},4250);
 
 }
 function breathing_off()
 {
-	const currentColor = rainbowColorAux ? rainbowColorAux : state.currentColor;
+	const currentColor = colorAux ? colorAux : state.currentColor;
 	state.breathing = false;
 	set_color(currentColor.red, currentColor.green, currentColor.blue);
-	rainbowColorAux = null;
+	colorAux = null;
+	clearInterval(breathingLoop);
 }
 
 function clearAllTimeouts(timeouts) {
