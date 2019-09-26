@@ -46,7 +46,7 @@ function stroboscopic_on(emitStateChange)
 	colorAux = state.currentColor;
 	var stroboscop = true;
 	stroboscopLoop = setInterval(function(){
-		console.log(stroboscop ? "lights on" : "lights off")
+		//console.log(stroboscop ? "lights on" : "lights off")
 		if(stroboscop)
 		{
 			set_color(colorAux.red, colorAux.green, colorAux.blue);
@@ -139,7 +139,7 @@ function breathing_cycle(emitStateChange)
 
 			   	set_color(red, green, blue);
 
-			   	console.log(`${i}) Colors:  ${red} ${green} ${blue}`)
+			   	//console.log(`${i}) Colors:  ${red} ${green} ${blue}`)
 			   	emitStateChange();
 			} else {
 				clearAllTimeouts(timeouts);
