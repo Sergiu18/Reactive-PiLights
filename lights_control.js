@@ -98,7 +98,7 @@ function rainbow_on(emitStateChange)
 	state.rainbow = true; 
 	colorAux = state.currentColor;
 	rainbow_cycle(emitStateChange);
-	rainbowLoop = setInterval(() => rainbow_cycle(emitStateChange),5250);
+	rainbowLoop = setInterval(() => rainbow_cycle(emitStateChange),5200);
 }
 
 function rainbow_off()
