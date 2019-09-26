@@ -136,7 +136,7 @@ function breathing_on(emitStateChange)
 				   		blue
 				   	});
 				} else {
-					{ red, green, blue } = colors.pop();
+					({ red, green, blue } = colors.pop());
 				}
 
 			   	set_color(red, green, blue);
