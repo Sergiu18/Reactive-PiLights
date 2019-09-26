@@ -123,8 +123,7 @@ function breathing_on(emitStateChange)
 	state.breathing = true; 
 	colorAux = state.currentColor;
 
-	breathingLoop = setInterval(() => {
-		for (let i = 0; i < timeoutNumber; ++i)
+			for (let i = 0; i < timeoutNumber; ++i)
 		{	
 			timeouts.push(setTimeout(function(){
 				if(state.breathing==true)
@@ -145,14 +144,43 @@ function breathing_on(emitStateChange)
 
 				   	set_color(red, green, blue);
 
-				   	console.log(`Colors:  ${red} ${green} ${blue}`)
+				   	console.log(`${i}) Colors:  ${red} ${green} ${blue}`)
 				   	emitStateChange();
 				} else {
 					clearAllTimeouts(timeouts);
 				}
 		   	}, 50*i));
-		}
-	},4250);
+
+	// breathingLoop = setInterval(() => {
+	// 	for (let i = 0; i < timeoutNumber; ++i)
+	// 	{	
+	// 		timeouts.push(setTimeout(function(){
+	// 			if(state.breathing==true)
+	// 			{
+	// 				if(i < timeoutNumber / 2) {
+	// 					red = Math.round(red - (red*i)/255);
+	// 					green = Math.round(green - (green*i)/255);
+	// 				 	blue  = Math.round(blue - (blue*i)/255);
+
+	// 				   	colors.push({
+	// 				   		red,
+	// 				   		green,
+	// 				   		blue
+	// 				   	});
+	// 				} else {
+	// 					({ red, green, blue } = colors.pop());
+	// 				}
+
+	// 			   	set_color(red, green, blue);
+
+	// 			   	console.log(`Colors:  ${red} ${green} ${blue}`)
+	// 			   	emitStateChange();
+	// 			} else {
+	// 				clearAllTimeouts(timeouts);
+	// 			}
+	// 	   	}, 50*i));
+	// 	}
+	// },4250);
 
 }
 function breathing_off()
@@ -161,7 +189,7 @@ function breathing_off()
 	state.breathing = false;
 	set_color(currentColor.red, currentColor.green, currentColor.blue);
 	colorAux = null;
-	clearInterval(breathingLoop);
+	//clearInterval(breathingLoop);
 }
 
 function clearAllTimeouts(timeouts) {
