@@ -104,7 +104,6 @@ function rainbow_on(emitStateChange)
 function rainbow_off()
 {
 	const currentColor = colorAux ? colorAux : state.currentColor;
-
 	console.log("rainbow_off called");
 	state.rainbow = false;
 	set_color(currentColor.red, currentColor.green, currentColor.blue);
@@ -112,76 +111,49 @@ function rainbow_off()
 	clearInterval(rainbowLoop);
 }
 
-function breathing_on(emitStateChange)
+function breathing_cycle(emitStateChange)
 {
 	const timeoutNumber = 90;
 	const colors = [];
 	const timeouts = [];
 
 	var { red, green, blue } = state.currentColor;
+	for (let i = 0; i < timeoutNumber; ++i)
+	{	
+		timeouts.push(setTimeout(function(){
+			if(state.breathing==true)
+			{
+				if(i < timeoutNumber / 2) {
+					red = Math.round(red - (red*i)/255);
+					green = Math.round(green - (green*i)/255);
+				 	blue  = Math.round(blue - (blue*i)/255);
 
+				   	colors.push({
+				   		red,
+				   		green,
+				   		blue
+				   	});
+				} else {
+					({ red, green, blue } = colors.pop());
+				}
+
+			   	set_color(red, green, blue);
+
+			   	console.log(`${i}) Colors:  ${red} ${green} ${blue}`)
+			   	emitStateChange();
+			} else {
+				clearAllTimeouts(timeouts);
+			}
+	   	}, 50*i));
+	}
+}
+
+function breathing_on(emitStateChange)
+{
 	state.breathing = true; 
 	colorAux = state.currentColor;
-
-		for (let i = 0; i < timeoutNumber; ++i)
-		{	
-			timeouts.push(setTimeout(function(){
-				if(state.breathing==true)
-				{
-					if(i < timeoutNumber / 2) {
-						red = Math.round(red - (red*i)/255);
-						green = Math.round(green - (green*i)/255);
-					 	blue  = Math.round(blue - (blue*i)/255);
-
-					   	colors.push({
-					   		red,
-					   		green,
-					   		blue
-					   	});
-					} else {
-						({ red, green, blue } = colors.pop());
-					}
-
-				   	set_color(red, green, blue);
-
-				   	console.log(`${i}) Colors:  ${red} ${green} ${blue}`)
-				   	emitStateChange();
-				} else {
-					clearAllTimeouts(timeouts);
-				}
-		   	}, 50*i));
-		}
-
-	breathingLoop = setInterval(() => {
-		for (let i = 0; i < timeoutNumber; ++i)
-		{	
-			timeouts.push(setTimeout(function(){
-				if(state.breathing==true)
-				{
-					if(i < timeoutNumber / 2) {
-						red = Math.round(red - (red*i)/255);
-						green = Math.round(green - (green*i)/255);
-					 	blue  = Math.round(blue - (blue*i)/255);
-
-					   	colors.push({
-					   		red,
-					   		green,
-					   		blue
-					   	});
-					} else {
-						({ red, green, blue } = colors.pop());
-					}
-
-				   	set_color(red, green, blue);
-
-				   	console.log(`${i}) Colors:  ${red} ${green} ${blue}`)
-				   	emitStateChange();
-				} else {
-					clearAllTimeouts(timeouts);
-				}
-		   	}, 50*i));
-		}
-	},4250);
+	breathing_cycle(emitStateChange);
+	breathingLoop = setInterval(() => breathing_cycle(emitStateChange),4500);
 
 }
 
