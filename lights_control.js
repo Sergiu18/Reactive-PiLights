@@ -117,50 +117,38 @@ function breathing_on(emitStateChange)
 	var { red, green, blue } = state.currentColor;
 	state.breathing = true; 
 	rainbowColorAux = state.currentColor;
-	var colors = []
-	var color = {
-		r: 0,
-		g: 0,
-		b: 0
-	}
+	var colors = [];
 	var timeouts = [];
-	for (let i = 0; i <= 40; ++i)
+	const timeoutNumber = 80;
+	for (let i = 0; i <= timeoutNumber; ++i)
 	{	
 		timeouts.push(setTimeout(function(){
 			if(state.breathing==true)
 			{
-				red = Math.round(red - (red*i)/255);
-				green = Math.round(green - (green*i)/255);
-			 	blue  = Math.round(blue - (blue*i)/255);
+				if(i < timeoutNumber / 2) {
+					red = Math.round(red - (red*i)/255);
+					green = Math.round(green - (green*i)/255);
+				 	blue  = Math.round(blue - (blue*i)/255);
+
+				   	colors.push({
+				   		red,
+				   		green,
+				   		blue
+				   	});
+				} else {
+					{ red, green, blue } = colors.pop();
+				}
+
 			   	set_color(red, green, blue);
-			   	color.r=red;
-			   	color.g=green;
-			   	color.b=blue;
-			   	colors.push(color);
+
 			   	console.log(`Colors:  ${red} ${green} ${blue}`)
-			   	console.log(`Colors:  ${colors}`)
 			   	emitStateChange();
 			} else {
 				clearAllTimeouts(timeouts);
 			}
 	   	}, 50*i));
 	}
-	// for (let j = 45; j >= 5; j--)
-	// {	
-	// 	timeouts.push(setTimeout(function(){
-	// 		if(state.breathing==true)
-	// 		{
-	// 			red = Math.ceil(red + (red*j)/255);
-	// 			green = Math.ceil(green + (green*j)/255);
-	// 		 	blue  = Math.ceil(blue + (blue*j)/255);
-	// 		   	set_color(red, green, blue);
-	// 		   	console.log(`Colors:  ${red} ${green} ${blue}`)
-	// 		   	emitStateChange();
-	// 		} else {
-	// 			clearAllTimeouts(timeouts);
-	// 		}
-	//    	}, 50*j+2250));
-	// }
+
 }
 function breathing_off()
 {
