@@ -120,7 +120,7 @@ function breathing_on(emitStateChange)
 	var colors = [];
 	var timeouts = [];
 	const timeoutNumber = 80;
-	for (let i = 0; i <= timeoutNumber; ++i)
+	for (let i = 0; i < timeoutNumber; ++i)
 	{	
 		timeouts.push(setTimeout(function(){
 			if(state.breathing==true)
