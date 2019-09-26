@@ -113,7 +113,7 @@ function rainbow_off()
 
 function breathing_cycle(emitStateChange)
 {
-	const timeoutNumber = 94;
+	const timeoutNumber = 90;
 	const colors = [];
 	const timeouts = [];
 
