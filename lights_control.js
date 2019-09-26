@@ -123,7 +123,7 @@ function breathing_on(emitStateChange)
 	state.breathing = true; 
 	colorAux = state.currentColor;
 
-			for (let i = 0; i < timeoutNumber; ++i)
+		for (let i = 0; i < timeoutNumber; ++i)
 		{	
 			timeouts.push(setTimeout(function(){
 				if(state.breathing==true)
@@ -150,6 +150,7 @@ function breathing_on(emitStateChange)
 					clearAllTimeouts(timeouts);
 				}
 		   	}, 50*i));
+		}
 
 	// breathingLoop = setInterval(() => {
 	// 	for (let i = 0; i < timeoutNumber; ++i)
@@ -183,6 +184,7 @@ function breathing_on(emitStateChange)
 	// },4250);
 
 }
+
 function breathing_off()
 {
 	const currentColor = colorAux ? colorAux : state.currentColor;
@@ -192,7 +194,8 @@ function breathing_off()
 	//clearInterval(breathingLoop);
 }
 
-function clearAllTimeouts(timeouts) {
+function clearAllTimeouts(timeouts) 
+{
 	timeouts.forEach(timeout => clearTimeout(timeout));
 }
 
