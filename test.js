@@ -10,13 +10,13 @@ var micInstance = mic({
 var micInputStream = micInstance.getAudioStream();
  
  
-micInputStream.on('data', function(data) {
-    console.log("Recieved Input Stream: " + data.length);
-});
+// micInputStream.on('data', function(data) {
+//     console.log("Recieved Input Stream: " + data.length);
+// });
  
-micInputStream.on('error', function(err) {
-    cosole.log("Error in Input Stream: " + err);
-});
+// micInputStream.on('error', function(err) {
+//     cosole.log("Error in Input Stream: " + err);
+// });
  
 // micInputStream.on('startComplete', function() {
 //     console.log("Got SIGNAL startComplete");
@@ -25,9 +25,9 @@ micInputStream.on('error', function(err) {
 //     }, 5000);
 // });
     
-micInputStream.on('stopComplete', function() {
-    console.log("Got SIGNAL stopComplete");
-});
+// micInputStream.on('stopComplete', function() {
+//     console.log("Got SIGNAL stopComplete");
+// });
     
 // micInputStream.on('pauseComplete', function() {
 //     console.log("Got SIGNAL pauseComplete");
@@ -50,5 +50,9 @@ micInputStream.on('stopComplete', function() {
 // micInputStream.on('processExitComplete', function() {
 //     console.log("Got SIGNAL processExitComplete");
 // });
- 
+
+ micInputStream.on('catch signal', function() {
+    console.log("I hear you");
+});
+
 micInstance.start();
