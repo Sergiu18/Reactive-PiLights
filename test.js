@@ -11,7 +11,7 @@ var micInputStream = micInstance.getAudioStream();
  
  
 micInputStream.on('data', function(data) {
-    console.log("Recieved Input Stream: " + data);
+    console.log("Recieved Input Stream: " + data.length);
 });
  
 micInputStream.on('error', function(err) {
