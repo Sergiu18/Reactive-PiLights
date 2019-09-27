@@ -25,9 +25,9 @@ micInputStream.on('error', function(err) {
 //     }, 5000);
 // });
     
-// micInputStream.on('stopComplete', function() {
-//     console.log("Got SIGNAL stopComplete");
-// });
+micInputStream.on('stopComplete', function() {
+    console.log("Got SIGNAL stopComplete");
+});
     
 // micInputStream.on('pauseComplete', function() {
 //     console.log("Got SIGNAL pauseComplete");
