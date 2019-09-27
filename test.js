@@ -9,12 +9,9 @@ var micInstance = mic({
 });
 var micInputStream = micInstance.getAudioStream();
  
-var outputFileStream = fs.WriteStream('output.raw');
- 
-micInputStream.pipe(outputFileStream);
  
 micInputStream.on('data', function(data) {
-    console.log("Recieved Input Stream: " + data.length);
+    console.log("Recieved Input Stream: " + data);
 });
  
 micInputStream.on('error', function(err) {
