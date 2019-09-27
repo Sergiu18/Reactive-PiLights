@@ -23,6 +23,7 @@
     "express": "^4.17.1",
     "http": "0.0.0",
     "pigpio": "1.2.3",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.2.0",
+    "microphone": "^1.0.8"
   }
 }
