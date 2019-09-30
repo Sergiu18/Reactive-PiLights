@@ -35,8 +35,8 @@ micInputStream.on('catch signal', function() {
     console.log("I hear you");
 });
 
-micInputStream.on('startComplete', function() {
-    console.log("Got SIGNAL startComplete");
+micInputStream.on('stopComplete', function() {
+    console.log("Got SIGNAL stopComplete");
     setTimeout(function() {
             console.log(m);
     }, 5000);
