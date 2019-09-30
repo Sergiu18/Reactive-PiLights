@@ -12,6 +12,19 @@ var micInputStream = micInstance.getAudioStream();
  
 micInputStream.on('data', function(data) {
     console.log("Recieved Input Stream: " + data);
+
+ 	var input = data;
+	var len = input.length  ; 
+	var total = i = 0;
+	var rms;
+
+	while ( i < len ) {
+		total += Math.abs( input[i++] )
+	} 
+
+	rms = Math.sqrt( total / len );
+
+	console.log(( rms * 100 ) + '%')
 });
  
 
