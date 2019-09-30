@@ -8,7 +8,7 @@ var micInstance = mic({
     exitOnSilence: 100
 });
 var micInputStream = micInstance.getAudioStream();
- 
+var m;
  
 micInputStream.on('data', function(data) {
     console.log("Recieved Input Stream: " + data.length);
@@ -18,7 +18,6 @@ micInputStream.on('data', function(data) {
 	var total = i = 0;
 	var rms;
 	var c;
-	var m
 
 	while ( i < len ) {
 		total += Math.abs( input[i++] )
