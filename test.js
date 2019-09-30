@@ -5,7 +5,7 @@ var micInstance = mic({
     rate: '16000',
     channels: '1',
     debug: true,
-    exitOnSilence: 100
+    exitOnSilence: 15
 });
 var micInputStream = micInstance.getAudioStream();
 
