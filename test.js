@@ -24,7 +24,8 @@ micInputStream.on('data', function(data) {
 
 	rms = Math.sqrt( total / len );
 
-	console.log(( rms * 100 ) + '%')
+	console.log("rms", rms);
+	console.log("total", total);
 });
  
 
