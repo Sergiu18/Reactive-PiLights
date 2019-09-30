@@ -8,7 +8,8 @@ var micInstance = mic({
     exitOnSilence: 100
 });
 var micInputStream = micInstance.getAudioStream();
-var m;
+
+var blockValues = [];
  
 micInputStream.on('data', function(data) {
     console.log("Recieved Input Stream: " + data.length);
@@ -17,17 +18,28 @@ micInputStream.on('data', function(data) {
 	var len = input.length  ; 
 	var total = i = 0;
 	var rms;
-	var c;
 
 	while ( i < len ) {
 		total += Math.abs( input[i++] )
 	} 
 
 	rms = Math.sqrt( total / len );
-	c++
-	m = m + rms/c
+
+	if(blockValues.length < 10) {
+		blockValues.push(rms);
+		average = 0;
+	} 
+	else {
+		var blockValuesTotal = blockValues.reduce((accum, reducer) => accum+reducer, 0);
+		var average = blockValuesTotal / blockValues.length;
+		blockValues = [];
+	}
+
 	console.log("rms", rms);
 	console.log("total", total);
+	if(average) {
+		console.log(average);
+	}
 });
 
 
