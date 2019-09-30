@@ -17,20 +17,30 @@ micInputStream.on('data', function(data) {
 	var len = input.length  ; 
 	var total = i = 0;
 	var rms;
+	var c;
+	var m
 
 	while ( i < len ) {
 		total += Math.abs( input[i++] )
 	} 
 
 	rms = Math.sqrt( total / len );
-
+	c++
+	m = m + rms/c
 	console.log("rms", rms);
 	console.log("total", total);
 });
- 
+
 
 micInputStream.on('catch signal', function() {
     console.log("I hear you");
+});
+
+micInputStream.on('startComplete', function() {
+    console.log("Got SIGNAL startComplete");
+    setTimeout(function() {
+            console.log(m);
+    }, 5000);
 });
 
 micInstance.start();
@@ -38,12 +48,7 @@ micInstance.start();
 //     cosole.log("Error in Input Stream: " + err);
 // });
  
-// micInputStream.on('startComplete', function() {
-//     console.log("Got SIGNAL startComplete");
-//     setTimeout(function() {
-//             micInstance.pause();
-//     }, 5000);
-// });
+
     
 // micInputStream.on('stopComplete', function() {
 //     console.log("Got SIGNAL stopComplete");
