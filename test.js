@@ -2,10 +2,8 @@ var mic = require('mic');
 var fs = require('fs');
  
 var micInstance = mic({
-    rate: '16000',
-    channels: '1',
-    debug: true,
-    exitOnSilence: 15
+    rate: '8000',
+    channels: '1'
 });
 var micInputStream = micInstance.getAudioStream();
 
@@ -25,7 +23,7 @@ micInputStream.on('data', function(data) {
 
 	rms = Math.sqrt( total / len );
 
-	if(blockValues.length < 10) {
+	if(blockValues.length < 5) {
 		blockValues.push(rms);
 		average = 0;
 	} 
