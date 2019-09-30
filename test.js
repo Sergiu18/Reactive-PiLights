@@ -5,14 +5,14 @@ var micInstance = mic({
     rate: '16000',
     channels: '1',
     debug: true,
-    exitOnSilence: 6
+    exitOnSilence: 100
 });
 var micInputStream = micInstance.getAudioStream();
  
  
-// micInputStream.on('data', function(data) {
-//     console.log("Recieved Input Stream: " + data.length);
-// });
+micInputStream.on('data', function(data) {
+    console.log("Recieved Input Stream: " + data.length);
+});
  
 // micInputStream.on('error', function(err) {
 //     cosole.log("Error in Input Stream: " + err);
