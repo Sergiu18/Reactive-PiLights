@@ -38,7 +38,7 @@ micInputStream.on('data', function(data) {
 	console.log("rms", rms);
 	console.log("total", total);
 	if(average) {
-		console.log(average);
+		console.log(Math.ceil(average * 1000));
 	}
 });
 
